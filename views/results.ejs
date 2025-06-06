@@ -1,0 +1,511 @@
+<%- include('partials/header', {title: 'Quiz Results - MERN Quiz Pro'}) %>
+
+<div class="results-container">
+    <div class="results-header" data-aos="zoom-in" data-aos-duration="1000">
+        <div class="score-circle <%= percentage >= 70 ? 'pass' : 'fail' %>">
+            <div class="score-percentage"><%= percentage %>%</div>
+            <div class="score-fraction"><%= score %>/<%= totalQuestions %></div>
+        </div>
+        
+        <div class="results-info">
+            <h1 class="results-title" data-aos="fade-left" data-aos-delay="200">
+                <%= grade.message %>
+            </h1>
+            <div class="grade-badge <%= grade.color %>" data-aos="fade-left" data-aos-delay="400">
+                <i class="fas fa-award"></i>
+                Grade: <%= grade.grade %>
+            </div>
+            <div class="results-stats" data-aos="fade-left" data-aos-delay="600">
+                <div class="stat">
+                    <i class="fas fa-clock"></i>
+                    <span>Time: <%= timeTaken %></span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Correct: <%= score %></span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Wrong: <%= totalQuestions - score %></span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-percentage"></i>
+                    <span>Accuracy: <%= percentage %>%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Insights -->
+    <div class="performance-insights" data-aos="fade-up" data-aos-delay="800">
+        <div class="insight-card">
+            <div class="insight-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="insight-content">
+                <h3>Performance Analysis</h3>
+                <p>
+                    <% if (percentage >= 90) { %>
+                        Outstanding! You have mastered the MERN stack concepts. Consider sharing your knowledge with others.
+                    <% } else if (percentage >= 80) { %>
+                        Excellent work! You have a strong understanding of MERN stack technologies.
+                    <% } else if (percentage >= 70) { %>
+                        Good job! You have a solid foundation. Focus on the areas where you missed questions.
+                    <% } else if (percentage >= 60) { %>
+                        Fair performance. Review the explanations and practice more to improve your understanding.
+                    <% } else { %>
+                        Keep learning! The MERN stack has many concepts to master. Don't give up!
+                    <% } %>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Performance -->
+    <div class="category-performance" data-aos="fade-up" data-aos-delay="1000">
+        <h3><i class="fas fa-chart-bar"></i> Category Performance</h3>
+        <div class="category-grid">
+            <% Object.keys(categoryStats).forEach((category, index) => { %>
+                <div class="category-stat" data-aos="flip-up" data-aos-delay="<%= 1200 + (index * 100) %>">
+                    <div class="category-icon">
+                        <% if (category === 'MongoDB') { %>
+                            <i class="fas fa-leaf"></i>
+                        <% } else if (category === 'Express') { %>
+                            <i class="fas fa-server"></i>
+                        <% } else if (category === 'React') { %>
+                            <i class="fab fa-react"></i>
+                        <% } else if (category === 'Node.js') { %>
+                            <i class="fab fa-node-js"></i>
+                        <% } else { %>
+                            <i class="fas fa-code"></i>
+                        <% } %>
+                    </div>
+                    <div class="category-name"><%= category %></div>
+                    <div class="category-score">
+                        <%= categoryStats[category].correct %>/<%= categoryStats[category].total %>
+                    </div>
+                    <div class="category-percentage">
+                        <%= categoryStats[category].percentage %>%
+                    </div>
+                    <div class="category-bar">
+                        <div class="category-fill" data-progress="<%= categoryStats[category].percentage %>"></div>
+                    </div>
+                    <div class="category-feedback">
+                        <% if (categoryStats[category].percentage >= 80) { %>
+                            <span class="feedback-excellent">Excellent!</span>
+                        <% } else if (categoryStats[category].percentage >= 60) { %>
+                            <span class="feedback-good">Good</span>
+                        <% } else { %>
+                            <span class="feedback-needs-work">Needs Work</span>
+                        <% } %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- Detailed Review -->
+    <div class="answers-review" data-aos="fade-up" data-aos-delay="1400">
+        <h3><i class="fas fa-list-check"></i> Detailed Review</h3>
+        <div class="answers-container">
+            <% answers.forEach((answer, index) => { %>
+                <div class="answer-card <%= answer.isCorrect ? 'correct' : 'incorrect' %>" data-aos="fade-up" data-aos-delay="<%= 1600 + (index * 100) %>">
+                    <div class="answer-header">
+                        <div class="question-info">
+                            <span class="question-num">Q<%= index + 1 %></span>
+                            <span class="category-tag"><%= answer.category %></span>
+                            <span class="difficulty-tag">
+                                <% if (index < 3) { %>Easy<% } else if (index < 7) { %>Medium<% } else { %>Hard<% } %>
+                            </span>
+                        </div>
+                        <div class="answer-status <%= answer.isCorrect ? 'correct' : 'incorrect' %>">
+                            <% if (answer.isCorrect) { %>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Correct</span>
+                            <% } else { %>
+                                <i class="fas fa-times-circle"></i>
+                                <span>Incorrect</span>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <div class="answer-content">
+                        <h4 class="answer-question"><%= answer.question %></h4>
+                        
+                        <div class="answer-options">
+                            <div class="user-answer">
+                                <strong>Your Answer:</strong>
+                                <span class="option-display <%= answer.isCorrect ? 'correct' : 'incorrect' %>">
+                                    <%= String.fromCharCode(65 + answer.userAnswer) %>. <%= answer.options[answer.userAnswer] %>
+                                </span>
+                            </div>
+                            
+                            <% if (!answer.isCorrect) { %>
+                                <div class="correct-answer">
+                                    <strong>Correct Answer:</strong>
+                                    <span class="option-display correct">
+                                        <%= String.fromCharCode(65 + answer.correctAnswer) %>. <%= answer.options[answer.correctAnswer] %>
+                                    </span>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="explanation">
+                            <div class="explanation-header">
+                                <i class="fas fa-lightbulb"></i>
+                                <strong>Explanation:</strong>
+                            </div>
+                            <p><%= answer.explanation %></p>
+                        </div>
+
+                        <!-- Learning Resources -->
+                        <div class="learning-resources">
+                            <h5><i class="fas fa-book"></i> Learn More:</h5>
+                            <div class="resource-links">
+                                <% if (answer.category === 'MongoDB') { %>
+                                    <a href="https://docs.mongodb.com/" target="_blank" class="resource-link">
+                                        <i class="fas fa-external-link-alt"></i> MongoDB Docs
+                                    </a>
+                                <% } else if (answer.category === 'Express') { %>
+                                    <a href="https://expressjs.com/" target="_blank" class="resource-link">
+                                        <i class="fas fa-external-link-alt"></i> Express.js Guide
+                                    </a>
+                                <% } else if (answer.category === 'React') { %>
+                                    <a href="https://react.dev/" target="_blank" class="resource-link">
+                                        <i class="fas fa-external-link-alt"></i> React Documentation
+                                    </a>
+                                <% } else if (answer.category === 'Node.js') { %>
+                                    <a href="https://nodejs.org/docs/" target="_blank" class="resource-link">
+                                        <i class="fas fa-external-link-alt"></i> Node.js Docs
+                                    </a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="results-actions" data-aos="fade-up" data-aos-delay="2000">
+        <a href="/quiz" class="action-btn primary">
+            <i class="fas fa-redo"></i>
+            <span>Retake Quiz</span>
+        </a>
+        <a href="/" class="action-btn secondary">
+            <i class="fas fa-home"></i>
+            <span>Back to Home</span>
+        </a>
+        <button onclick="window.print()" class="action-btn outline">
+            <i class="fas fa-print"></i>
+            <span>Print Results</span>
+        </button>
+        <button onclick="shareResults()" class="action-btn outline">
+            <i class="fas fa-share"></i>
+            <span>Share Results</span>
+        </button>
+        <button onclick="downloadCertificate()" class="action-btn outline">
+            <i class="fas fa-certificate"></i>
+            <span>Get Certificate</span>
+        </button>
+    </div>
+</div>
+
+<!-- Certificate Modal -->
+<div class="certificate-modal" id="certificateModal">
+    <div class="modal-content">
+        <div class="certificate">
+            <div class="certificate-header">
+                <h2>Certificate of Achievement</h2>
+                <div class="certificate-logo">
+                    <i class="fas fa-award"></i>
+                </div>
+            </div>
+            <div class="certificate-body">
+                <p>This certifies that</p>
+                <h3 class="certificate-name">MERN Stack Developer</h3>
+                <p>has successfully completed the</p>
+                <h4>MERN Stack Quiz Pro</h4>
+                <p>with a score of <strong><%= percentage %>%</strong></p>
+                <div class="certificate-date">
+                    Issued on <%= new Date().toLocaleDateString() %>
+                </div>
+            </div>
+            <div class="certificate-footer">
+                <div class="signature">
+                    <p>MERN Quiz Pro</p>
+                    <p>Certification Authority</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button onclick="closeCertificate()" class="action-btn secondary">Close</button>
+            <button onclick="downloadCertificateImage()" class="action-btn primary">Download</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.performance-insights {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.insight-card {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: flex-start;
+}
+
+.insight-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-glow);
+}
+
+.insight-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--dark-900);
+}
+
+.insight-content p {
+    color: var(--gray-400);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.category-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    margin: 0 auto var(--space-sm);
+    box-shadow: var(--shadow-md);
+}
+
+.category-stat:nth-child(1) .category-icon { background: linear-gradient(135deg, #47a248 0%, #4db33d 100%); }
+.category-stat:nth-child(2) .category-icon { background: linear-gradient(135deg, #000000 0%, #333333 100%); }
+.category-stat:nth-child(3) .category-icon { background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%); }
+.category-stat:nth-child(4) .category-icon { background: linear-gradient(135deg, #339933 0%, #68cc45 100%); }
+
+.category-feedback {
+    margin-top: var(--space-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.feedback-excellent { color: var(--success-color); }
+.feedback-good { color: var(--warning-color); }
+.feedback-needs-work { color: var(--danger-color); }
+
+.difficulty-tag {
+    background: var(--gray-300);
+    color: var(--dark-900);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.learning-resources {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--gray-200);
+}
+
+.learning-resources h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--dark-900);
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.resource-links {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--primary-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: var(--transition-normal);
+}
+
+.resource-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.certificate-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+}
+
+.certificate-modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    max-width: 600px;
+    width: 100%;
+    box-shadow: var(--shadow-xl);
+}
+
+.certificate {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 3px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    position: relative;
+}
+
+.certificate::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-md);
+    opacity: 0.3;
+}
+
+.certificate-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: var(--space-sm);
+}
+
+.certificate-logo {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: var(--space-lg);
+}
+
+.certificate-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-900);
+    margin: var(--space-sm) 0;
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+}
+
+.certificate-date {
+    margin-top: var(--space-lg);
+    font-style: italic;
+    color: var(--gray-400);
+}
+
+.signature {
+    margin-top: var(--space-lg);
+    border-top: 2px solid var(--primary-color);
+    padding-top: var(--space-sm);
+    display: inline-block;
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .insight-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .certificate {
+        padding: var(--space-lg);
+    }
+    
+    .certificate-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+function downloadCertificate() {
+    const modal = document.getElementById('certificateModal');
+    modal.classList.add('active');
+}
+
+function closeCertificate() {
+    const modal = document.getElementById('certificateModal');
+    modal.classList.remove('active');
+}
+
+function downloadCertificateImage() {
+    // This would typically use html2canvas or similar library
+    // For now, we'll just show a notification
+    mernQuizPro.showNotification('Certificate download feature coming soon!', 'info');
+}
+
+// Close modal when clicking outside
+document.getElementById('certificateModal').addEventListener('click', (e) => {
+    if (e.target.id === 'certificateModal') {
+        closeCertificate();
+    }
+});
+</script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'MERN Stack Quiz Pro - Master Full Stack Development' %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <meta name="description" content="Master the MERN stack with our advanced interactive quiz featuring MongoDB, Express.js, React, and Node.js">
+    <meta name="keywords" content="MERN, MongoDB, Express, React, Node.js, Quiz, Full Stack, Web Development">
+    <meta name="author" content="MERN Quiz Pro">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/css/styles.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" as="style">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+            <div class="shape shape-6"></div>
+        </div>
+        <div class="gradient-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" data-aos="fade-down" data-aos-duration="1000">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-code"></i>
+                    <div class="brand-pulse"></div>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-main">MERN</span>
+                    <span class="brand-sub">Quiz Pro</span>
+                </div>
+            </a>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="/" class="nav-link <%= title && title.includes('Home') ? 'active' : '' %>">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                    <div class="nav-link-bg"></div>
+                </a>
+                <a href="/learn" class="nav-link <%= title && title.includes('Learn') ? 'active' : '' %>">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Learn</span>
+                    <div class="nav-link-bg"></div>
+                </a>
+                <a href="/about" class="nav-link <%= title && title.includes('About') ? 'active' : '' %>">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                    <div class="nav-link-bg"></div>
+                </a>
+                <a href="/quiz" class="nav-link quiz-btn">
+                    <i class="fas fa-rocket"></i>
+                    <span>Start Quiz</span>
+                    <div class="quiz-btn-bg"></div>
+                </a>
+            </div>
+            
+            <div class="mobile-menu-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-content">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            <p class="transition-text">Loading...</p>
+        </div>
+    </div>
+
+    <main class="main-content">

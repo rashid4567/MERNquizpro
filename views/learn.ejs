@@ -1,0 +1,4250 @@
+<%- include('partials/header', {title: 'Learn MERN Stack - Complete Guide'}) %>
+
+<!-- Hero Section -->
+<section class="learn-hero">
+    <div class="hero-container">
+        <div class="hero-content" data-aos="fade-up">
+            <div class="hero-badge" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Complete Learning Path</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="title-line" data-aos="fade-right" data-aos-delay="400">Master the</span>
+                <span class="title-gradient" data-aos="fade-left" data-aos-delay="600">MERN Stack</span>
+                <span class="title-line" data-aos="fade-right" data-aos-delay="800">Step by Step</span>
+            </h1>
+            
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="1000">
+                Comprehensive tutorials, code examples, and resources to become a 
+                <span class="highlight">full-stack developer</span> with MongoDB, Express.js, React, and Node.js
+            </p>
+            
+            <div class="learning-stats" data-aos="fade-up" data-aos-delay="1200">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">Code Examples</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="20">0</div>
+                    <div class="stat-label">YouTube Channels</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">Practice Projects</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Path Navigation -->
+<section class="learning-nav">
+    <div class="nav-container">
+        <div class="nav-tabs" data-aos="fade-up">
+            <button class="nav-tab active" data-target="mongodb">
+                <i class="fas fa-leaf"></i>
+                <span>MongoDB</span>
+            </button>
+            <button class="nav-tab" data-target="express">
+                <i class="fas fa-server"></i>
+                <span>Express.js</span>
+            </button>
+            <button class="nav-tab" data-target="react">
+                <i class="fab fa-react"></i>
+                <span>React</span>
+            </button>
+            <button class="nav-tab" data-target="nodejs">
+                <i class="fab fa-node-js"></i>
+                <span>Node.js</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- MongoDB Section -->
+<section class="tech-section active" id="mongodb">
+    <div class="section-container">
+        <div class="tech-header" data-aos="fade-up">
+            <div class="tech-icon mongodb">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <h2 class="tech-title">MongoDB - NoSQL Database</h2>
+            <p class="tech-description">
+                Learn MongoDB, the most popular NoSQL database for modern applications. 
+                Master document-based storage, queries, and database operations.
+            </p>
+        </div>
+
+        <!-- Learning Roadmap -->
+        <div class="learning-roadmap" data-aos="fade-up" data-aos-delay="200">
+            <h3><i class="fas fa-route"></i> Learning Roadmap</h3>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Introduction & Installation</h4>
+                        <p>Understanding NoSQL vs SQL, MongoDB basics, and installation</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Documents & Collections</h4>
+                        <p>BSON format, creating collections, and document structure</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>CRUD Operations</h4>
+                        <p>Create, Read, Update, Delete operations with examples</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Advanced Queries</h4>
+                        <p>Aggregation pipeline, indexing, and performance optimization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="code-examples" data-aos="fade-up" data-aos-delay="400">
+            <h3><i class="fas fa-code"></i> Code Examples</h3>
+            
+            <div class="example-tabs">
+                <button class="example-tab active" data-example="mongo-basic">Basic Operations</button>
+                <button class="example-tab" data-example="mongo-crud">CRUD Operations</button>
+                <button class="example-tab" data-example="mongo-advanced">Advanced Queries</button>
+                <button class="example-tab" data-example="mongo-mongoose">Mongoose ODM</button>
+            </div>
+
+            <div class="example-content active" id="mongo-basic">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">MongoDB Basic Connection</span>
+                        <button class="copy-btn" onclick="copyCode('mongo-basic-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="mongo-basic-code" class="language-javascript">// Connect to MongoDB
+const { MongoClient } = require('mongodb');
+
+const uri = "mongodb://localhost:27017";
+const client = new MongoClient(uri);
+
+async function connectToMongoDB() {
+    try {
+        // Connect to MongoDB
+        await client.connect();
+        console.log("Connected to MongoDB!");
+        
+        // Select database
+        const database = client.db('mernapp');
+        
+        // Select collection
+        const collection = database.collection('users');
+        
+        return collection;
+    } catch (error) {
+        console.error("Connection failed:", error);
+    }
+}
+
+// Usage
+connectToMongoDB().then(collection => {
+    console.log("Ready to perform operations!");
+});</code></pre>
+                </div>
+                
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <ul>
+                        <li><strong>MongoClient:</strong> The main class for connecting to MongoDB</li>
+                        <li><strong>URI:</strong> Connection string specifying the MongoDB server</li>
+                        <li><strong>Database:</strong> Container for collections (like a SQL database)</li>
+                        <li><strong>Collection:</strong> Group of documents (like a SQL table)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-content" id="mongo-crud">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">CRUD Operations</span>
+                        <button class="copy-btn" onclick="copyCode('mongo-crud-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="mongo-crud-code" class="language-javascript">// CREATE - Insert documents
+async function createUser(collection) {
+    // Insert one document
+    const user = {
+        name: "John Doe",
+        email: "john@example.com",
+        age: 30,
+        skills: ["JavaScript", "React", "Node.js"]
+    };
+    
+    const result = await collection.insertOne(user);
+    console.log("User created:", result.insertedId);
+    
+    // Insert multiple documents
+    const users = [
+        { name: "Jane Smith", email: "jane@example.com", age: 25 },
+        { name: "Bob Johnson", email: "bob@example.com", age: 35 }
+    ];
+    
+    const multiResult = await collection.insertMany(users);
+    console.log("Users created:", multiResult.insertedIds);
+}
+
+// READ - Find documents
+async function readUsers(collection) {
+    // Find all users
+    const allUsers = await collection.find({}).toArray();
+    console.log("All users:", allUsers);
+    
+    // Find specific user
+    const user = await collection.findOne({ name: "John Doe" });
+    console.log("Found user:", user);
+    
+    // Find with conditions
+    const youngUsers = await collection.find({ age: { $lt: 30 } }).toArray();
+    console.log("Young users:", youngUsers);
+}
+
+// UPDATE - Modify documents
+async function updateUser(collection) {
+    // Update one document
+    const updateResult = await collection.updateOne(
+        { name: "John Doe" },
+        { $set: { age: 31, city: "New York" } }
+    );
+    console.log("Updated:", updateResult.modifiedCount);
+    
+    // Update multiple documents
+    const multiUpdateResult = await collection.updateMany(
+        { age: { $gte: 30 } },
+        { $set: { category: "senior" } }
+    );
+    console.log("Updated multiple:", multiUpdateResult.modifiedCount);
+}
+
+// DELETE - Remove documents
+async function deleteUser(collection) {
+    // Delete one document
+    const deleteResult = await collection.deleteOne({ name: "Bob Johnson" });
+    console.log("Deleted:", deleteResult.deletedCount);
+    
+    // Delete multiple documents
+    const multiDeleteResult = await collection.deleteMany({ age: { $lt: 25 } });
+    console.log("Deleted multiple:", multiDeleteResult.deletedCount);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="mongo-advanced">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Advanced Queries & Aggregation</span>
+                        <button class="copy-btn" onclick="copyCode('mongo-advanced-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="mongo-advanced-code" class="language-javascript">// Aggregation Pipeline
+async function aggregateUsers(collection) {
+    const pipeline = [
+        // Stage 1: Match documents
+        { $match: { age: { $gte: 25 } } },
+        
+        // Stage 2: Group by age range
+        {
+            $group: {
+                _id: {
+                    $switch: {
+                        branches: [
+                            { case: { $lt: ["$age", 30] }, then: "20s" },
+                            { case: { $lt: ["$age", 40] }, then: "30s" },
+                            { case: { $gte: ["$age", 40] }, then: "40+" }
+                        ],
+                        default: "unknown"
+                    }
+                },
+                count: { $sum: 1 },
+                avgAge: { $avg: "$age" },
+                users: { $push: "$name" }
+            }
+        },
+        
+        // Stage 3: Sort by count
+        { $sort: { count: -1 } }
+    ];
+    
+    const result = await collection.aggregate(pipeline).toArray();
+    console.log("Aggregation result:", result);
+}
+
+// Text Search
+async function searchUsers(collection) {
+    // Create text index
+    await collection.createIndex({ name: "text", email: "text" });
+    
+    // Search for text
+    const searchResult = await collection.find({
+        $text: { $search: "john" }
+    }).toArray();
+    
+    console.log("Search result:", searchResult);
+}
+
+// Geospatial Queries
+async function geospatialQuery(collection) {
+    // Insert location data
+    await collection.insertOne({
+        name: "Coffee Shop",
+        location: {
+            type: "Point",
+            coordinates: [-73.97, 40.77] // [longitude, latitude]
+        }
+    });
+    
+    // Create geospatial index
+    await collection.createIndex({ location: "2dsphere" });
+    
+    // Find nearby locations
+    const nearbyPlaces = await collection.find({
+        location: {
+            $near: {
+                $geometry: {
+                    type: "Point",
+                    coordinates: [-73.98, 40.78]
+                },
+                $maxDistance: 1000 // meters
+            }
+        }
+    }).toArray();
+    
+    console.log("Nearby places:", nearbyPlaces);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="mongo-mongoose">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Mongoose ODM</span>
+                        <button class="copy-btn" onclick="copyCode('mongo-mongoose-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="mongo-mongoose-code" class="language-javascript">const mongoose = require('mongoose');
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/mernapp');
+
+// Define Schema
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true
+    },
+    age: {
+        type: Number,
+        min: 0,
+        max: 120
+    },
+    skills: [String],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+// Add methods to schema
+userSchema.methods.getFullInfo = function() {
+    return `${this.name} (${this.email}) - ${this.age} years old`;
+};
+
+// Add static methods
+userSchema.statics.findByAge = function(age) {
+    return this.find({ age: age });
+};
+
+// Create Model
+const User = mongoose.model('User', userSchema);
+
+// Usage Examples
+async function mongooseExamples() {
+    try {
+        // Create new user
+        const user = new User({
+            name: 'Alice Johnson',
+            email: 'alice@example.com',
+            age: 28,
+            skills: ['React', 'MongoDB', 'Express']
+        });
+        
+        await user.save();
+        console.log('User saved:', user.getFullInfo());
+        
+        // Find users
+        const users = await User.find({ age: { $gte: 25 } });
+        console.log('Found users:', users);
+        
+        // Update user
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { $push: { skills: 'Node.js' } },
+            { new: true }
+        );
+        console.log('Updated user:', updatedUser);
+        
+        // Delete user
+        await User.findByIdAndDelete(user._id);
+        console.log('User deleted');
+        
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+mongooseExamples();</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube Channels -->
+        <div class="youtube-channels" data-aos="fade-up" data-aos-delay="600">
+            <h3><i class="fab fa-youtube"></i> Best YouTube Channels</h3>
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Traversy Media</h4>
+                        <p>Comprehensive MongoDB tutorials and crash courses</p>
+                        <a href="https://youtube.com/@TraversyMedia" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>The Net Ninja</h4>
+                        <p>Step-by-step MongoDB tutorials for beginners</p>
+                        <a href="https://youtube.com/@NetNinja" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>MongoDB</h4>
+                        <p>Official MongoDB channel with advanced tutorials</p>
+                        <a href="https://youtube.com/@MongoDB" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Academind</h4>
+                        <p>In-depth MongoDB concepts and best practices</p>
+                        <a href="https://youtube.com/@academind" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Projects -->
+        <div class="practice-projects" data-aos="fade-up" data-aos-delay="800">
+            <h3><i class="fas fa-project-diagram"></i> Practice Projects</h3>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h4>Contact Manager</h4>
+                    <p>Build a contact management system with CRUD operations</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Collections</span>
+                        <span class="skill-tag">CRUD</span>
+                        <span class="skill-tag">Validation</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-blog"></i>
+                    </div>
+                    <h4>Blog System</h4>
+                    <p>Create a blog with posts, comments, and user management</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Relationships</span>
+                        <span class="skill-tag">Aggregation</span>
+                        <span class="skill-tag">Indexing</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h4>E-commerce Database</h4>
+                    <p>Design a complete e-commerce database schema</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Schema Design</span>
+                        <span class="skill-tag">Transactions</span>
+                        <span class="skill-tag">Performance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Express.js Section -->
+<section class="tech-section" id="express">
+    <div class="section-container">
+        <div class="tech-header" data-aos="fade-up">
+            <div class="tech-icon express">
+                <i class="fas fa-server"></i>
+            </div>
+            <h2 class="tech-title">Express.js - Web Framework</h2>
+            <p class="tech-description">
+                Master Express.js, the fast and minimalist web framework for Node.js. 
+                Learn routing, middleware, and building RESTful APIs.
+            </p>
+        </div>
+
+        <!-- Learning Roadmap -->
+        <div class="learning-roadmap" data-aos="fade-up" data-aos-delay="200">
+            <h3><i class="fas fa-route"></i> Learning Roadmap</h3>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Setup & Basic Server</h4>
+                        <p>Installation, creating basic server, and understanding middleware</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Routing & HTTP Methods</h4>
+                        <p>GET, POST, PUT, DELETE routes and route parameters</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Middleware & Error Handling</h4>
+                        <p>Custom middleware, built-in middleware, and error handling</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>RESTful APIs & Authentication</h4>
+                        <p>Building REST APIs, JWT authentication, and security</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="code-examples" data-aos="fade-up" data-aos-delay="400">
+            <h3><i class="fas fa-code"></i> Code Examples</h3>
+            
+            <div class="example-tabs">
+                <button class="example-tab active" data-example="express-basic">Basic Server</button>
+                <button class="example-tab" data-example="express-routing">Routing</button>
+                <button class="example-tab" data-example="express-middleware">Middleware</button>
+                <button class="example-tab" data-example="express-api">REST API</button>
+            </div>
+
+            <div class="example-content active" id="express-basic">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Basic Express Server</span>
+                        <button class="copy-btn" onclick="copyCode('express-basic-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="express-basic-code" class="language-javascript">const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Built-in middleware for parsing JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Serve static files
+app.use(express.static('public'));
+
+// Basic route
+app.get('/', (req, res) => {
+    res.send('Hello World! Welcome to Express.js');
+});
+
+// Route with HTML response
+app.get('/about', (req, res) => {
+    res.send(`
+        <h1>About Page</h1>
+        <p>This is a simple Express.js application</p>
+        <a href="/">Go back to home</a>
+    `);
+});
+
+// Route with JSON response
+app.get('/api/info', (req, res) => {
+    res.json({
+        message: 'Express.js API',
+        version: '1.0.0',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('Server shutting down...');
+    process.exit(0);
+});</code></pre>
+                </div>
+                
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <ul>
+                        <li><strong>express():</strong> Creates an Express application instance</li>
+                        <li><strong>app.use():</strong> Mounts middleware functions</li>
+                        <li><strong>app.get():</strong> Defines GET route handlers</li>
+                        <li><strong>app.listen():</strong> Starts the server on specified port</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-content" id="express-routing">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Advanced Routing</span>
+                        <button class="copy-btn" onclick="copyCode('express-routing-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="express-routing-code" class="language-javascript">const express = require('express');
+const router = express.Router();
+
+// Route parameters
+app.get('/users/:id', (req, res) => {
+    const userId = req.params.id;
+    res.json({
+        message: `User ID: ${userId}`,
+        user: {
+            id: userId,
+            name: 'John Doe',
+            email: 'john@example.com'
+        }
+    });
+});
+
+// Multiple parameters
+app.get('/users/:userId/posts/:postId', (req, res) => {
+    const { userId, postId } = req.params;
+    res.json({
+        userId,
+        postId,
+        post: {
+            title: 'Sample Post',
+            content: 'This is a sample post content'
+        }
+    });
+});
+
+// Query parameters
+app.get('/search', (req, res) => {
+    const { q, page = 1, limit = 10 } = req.query;
+    
+    res.json({
+        query: q,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        results: [
+            { id: 1, title: 'Result 1' },
+            { id: 2, title: 'Result 2' }
+        ]
+    });
+});
+
+// Route with validation
+app.get('/users/:id(\\d+)', (req, res) => {
+    // This route only matches if id is a number
+    const userId = parseInt(req.params.id);
+    res.json({ userId, message: 'Valid user ID' });
+});
+
+// Router for modular routes
+const userRouter = express.Router();
+
+userRouter.get('/', (req, res) => {
+    res.json({ message: 'All users' });
+});
+
+userRouter.get('/:id', (req, res) => {
+    res.json({ message: `User ${req.params.id}` });
+});
+
+userRouter.post('/', (req, res) => {
+    const { name, email } = req.body;
+    res.status(201).json({
+        message: 'User created',
+        user: { id: Date.now(), name, email }
+    });
+});
+
+// Mount router
+app.use('/api/users', userRouter);
+
+// Catch-all route (404)
+app.use('*', (req, res) => {
+    res.status(404).json({
+        error: 'Route not found',
+        path: req.originalUrl
+    });
+});</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="express-middleware">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Middleware Functions</span>
+                        <button class="copy-btn" onclick="copyCode('express-middleware-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="express-middleware-code" class="language-javascript">const express = require('express');
+const app = express();
+
+// Custom logging middleware
+const logger = (req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.url}`);
+    next(); // Call next() to continue to the next middleware
+};
+
+// Authentication middleware
+const authenticate = (req, res, next) => {
+    const token = req.headers.authorization;
+    
+    if (!token) {
+        return res.status(401).json({ error: 'No token provided' });
+    }
+    
+    // Simulate token validation
+    if (token === 'Bearer valid-token') {
+        req.user = { id: 1, name: 'John Doe' };
+        next();
+    } else {
+        res.status(401).json({ error: 'Invalid token' });
+    }
+};
+
+// Validation middleware
+const validateUser = (req, res, next) => {
+    const { name, email } = req.body;
+    
+    if (!name || !email) {
+        return res.status(400).json({
+            error: 'Name and email are required'
+        });
+    }
+    
+    if (!email.includes('@')) {
+        return res.status(400).json({
+            error: 'Invalid email format'
+        });
+    }
+    
+    next();
+};
+
+// Rate limiting middleware
+const rateLimit = (maxRequests = 100, windowMs = 15 * 60 * 1000) => {
+    const requests = new Map();
+    
+    return (req, res, next) => {
+        const ip = req.ip;
+        const now = Date.now();
+        
+        if (!requests.has(ip)) {
+            requests.set(ip, { count: 1, resetTime: now + windowMs });
+            return next();
+        }
+        
+        const requestData = requests.get(ip);
+        
+        if (now > requestData.resetTime) {
+            requestData.count = 1;
+            requestData.resetTime = now + windowMs;
+            return next();
+        }
+        
+        if (requestData.count >= maxRequests) {
+            return res.status(429).json({
+                error: 'Too many requests'
+            });
+        }
+        
+        requestData.count++;
+        next();
+    };
+};
+
+// Apply middleware
+app.use(logger);
+app.use(express.json());
+app.use(rateLimit(50, 15 * 60 * 1000)); // 50 requests per 15 minutes
+
+// Protected route
+app.get('/protected', authenticate, (req, res) => {
+    res.json({
+        message: 'This is a protected route',
+        user: req.user
+    });
+});
+
+// Route with validation
+app.post('/users', validateUser, (req, res) => {
+    const { name, email } = req.body;
+    res.status(201).json({
+        message: 'User created successfully',
+        user: { id: Date.now(), name, email }
+    });
+});
+
+// Error handling middleware (must be last)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        error: 'Something went wrong!',
+        message: err.message
+    });
+});</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="express-api">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">RESTful API</span>
+                        <button class="copy-btn" onclick="copyCode('express-api-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="express-api-code" class="language-javascript">const express = require('express');
+const app = express();
+
+// In-memory database (use MongoDB in real apps)
+let users = [
+    { id: 1, name: 'John Doe', email: 'john@example.com' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+];
+
+app.use(express.json());
+
+// GET /api/users - Get all users
+app.get('/api/users', (req, res) => {
+    const { page = 1, limit = 10, search } = req.query;
+    
+    let filteredUsers = users;
+    
+    // Search functionality
+    if (search) {
+        filteredUsers = users.filter(user => 
+            user.name.toLowerCase().includes(search.toLowerCase()) ||
+            user.email.toLowerCase().includes(search.toLowerCase())
+        );
+    }
+    
+    // Pagination
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+    
+    res.json({
+        users: paginatedUsers,
+        pagination: {
+            page: parseInt(page),
+            limit: parseInt(limit),
+            total: filteredUsers.length,
+            pages: Math.ceil(filteredUsers.length / limit)
+        }
+    });
+});
+
+// GET /api/users/:id - Get user by ID
+app.get('/api/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id);
+    const user = users.find(u => u.id === userId);
+    
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    
+    res.json({ user });
+});
+
+// POST /api/users - Create new user
+app.post('/api/users', (req, res) => {
+    const { name, email } = req.body;
+    
+    // Validation
+    if (!name || !email) {
+        return res.status(400).json({
+            error: 'Name and email are required'
+        });
+    }
+    
+    // Check if email already exists
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+        return res.status(409).json({
+            error: 'Email already exists'
+        });
+    }
+    
+    // Create new user
+    const newUser = {
+        id: users.length + 1,
+        name,
+        email,
+        createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    
+    res.status(201).json({
+        message: 'User created successfully',
+        user: newUser
+    });
+});
+
+// PUT /api/users/:id - Update user
+app.put('/api/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id);
+    const { name, email } = req.body;
+    
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    if (userIndex === -1) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Update user
+    users[userIndex] = {
+        ...users[userIndex],
+        name: name || users[userIndex].name,
+        email: email || users[userIndex].email,
+        updatedAt: new Date().toISOString()
+    };
+    
+    res.json({
+        message: 'User updated successfully',
+        user: users[userIndex]
+    });
+});
+
+// DELETE /api/users/:id - Delete user
+app.delete('/api/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id);
+    const userIndex = users.findIndex(u => u.id === userId);
+    
+    if (userIndex === -1) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    
+    const deletedUser = users.splice(userIndex, 1)[0];
+    
+    res.json({
+        message: 'User deleted successfully',
+        user: deletedUser
+    });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}`);
+});</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube Channels -->
+        <div class="youtube-channels" data-aos="fade-up" data-aos-delay="600">
+            <h3><i class="fab fa-youtube"></i> Best YouTube Channels</h3>
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Traversy Media</h4>
+                        <p>Express.js crash courses and practical tutorials</p>
+                        <a href="https://youtube.com/@TraversyMedia" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>The Net Ninja</h4>
+                        <p>Complete Express.js tutorial series</p>
+                        <a href="https://youtube.com/@NetNinja" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Coding with Mosh</h4>
+                        <p>Professional Express.js development techniques</p>
+                        <a href="https://youtube.com/@programmingwithmosh" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Dave Gray</h4>
+                        <p>Full-stack development with Express.js</p>
+                        <a href="https://youtube.com/@DaveGrayTeachesCode" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Projects -->
+        <div class="practice-projects" data-aos="fade-up" data-aos-delay="800">
+            <h3><i class="fas fa-project-diagram"></i> Practice Projects</h3>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h4>Task Manager API</h4>
+                    <p>Build a RESTful API for task management with authentication</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">REST API</span>
+                        <span class="skill-tag">JWT Auth</span>
+                        <span class="skill-tag">Middleware</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h4>Chat Application</h4>
+                    <p>Real-time chat app with Socket.io and Express</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Socket.io</span>
+                        <span class="skill-tag">Real-time</span>
+                        <span class="skill-tag">Sessions</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-file-upload"></i>
+                    </div>
+                    <h4>File Upload Service</h4>
+                    <p>File upload and management system with validation</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Multer</span>
+                        <span class="skill-tag">Validation</span>
+                        <span class="skill-tag">Storage</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- React Section -->
+<section class="tech-section" id="react">
+    <div class="section-container">
+        <div class="tech-header" data-aos="fade-up">
+            <div class="tech-icon react">
+                <i class="fab fa-react"></i>
+            </div>
+            <h2 class="tech-title">React - UI Library</h2>
+            <p class="tech-description">
+                Master React, the most popular JavaScript library for building user interfaces. 
+                Learn components, hooks, state management, and modern React patterns.
+            </p>
+        </div>
+
+        <!-- Learning Roadmap -->
+        <div class="learning-roadmap" data-aos="fade-up" data-aos-delay="200">
+            <h3><i class="fas fa-route"></i> Learning Roadmap</h3>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>JSX & Components</h4>
+                        <p>Understanding JSX syntax, functional and class components</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Props & State</h4>
+                        <p>Component communication, state management, and data flow</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Hooks & Effects</h4>
+                        <p>useState, useEffect, custom hooks, and lifecycle methods</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Advanced Patterns</h4>
+                        <p>Context API, Redux, routing, and performance optimization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="code-examples" data-aos="fade-up" data-aos-delay="400">
+            <h3><i class="fas fa-code"></i> Code Examples</h3>
+            
+            <div class="example-tabs">
+                <button class="example-tab active" data-example="react-basic">Components & JSX</button>
+                <button class="example-tab" data-example="react-hooks">Hooks</button>
+                <button class="example-tab" data-example="react-state">State Management</button>
+                <button class="example-tab" data-example="react-advanced">Advanced Patterns</button>
+            </div>
+
+            <div class="example-content active" id="react-basic">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Components & JSX</span>
+                        <button class="copy-btn" onclick="copyCode('react-basic-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="react-basic-code" class="language-jsx">import React from 'react';
+
+// Functional Component
+function Welcome({ name, age }) {
+    return (
+        <div className="welcome-container">
+            <h1>Hello, {name}!</h1>
+            <p>You are {age} years old.</p>
+        </div>
+    );
+}
+
+// Component with conditional rendering
+function UserProfile({ user, isLoggedIn }) {
+    if (!isLoggedIn) {
+        return <div>Please log in to view profile</div>;
+    }
+
+    return (
+        <div className="user-profile">
+            <img 
+                src={user.avatar || '/default-avatar.png'} 
+                alt={`${user.name}'s avatar`}
+                className="avatar"
+            />
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+            
+            {/* Conditional rendering with ternary operator */}
+            <p>Status: {user.isActive ? 'Active' : 'Inactive'}</p>
+            
+            {/* Conditional rendering with && operator */}
+            {user.bio && <p className="bio">{user.bio}</p>}
+        </div>
+    );
+}
+
+// Component with list rendering
+function TodoList({ todos }) {
+    return (
+        <div className="todo-list">
+            <h3>My Todos</h3>
+            {todos.length === 0 ? (
+                <p>No todos yet!</p>
+            ) : (
+                <ul>
+                    {todos.map(todo => (
+                        <li 
+                            key={todo.id} 
+                            className={todo.completed ? 'completed' : ''}
+                        >
+                            <input 
+                                type="checkbox" 
+                                checked={todo.completed}
+                                onChange={() => {/* handle change */}}
+                            />
+                            <span>{todo.text}</span>
+                            {todo.priority === 'high' && (
+                                <span className="priority-badge">High Priority</span>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
+
+// Component with event handling
+function Button({ onClick, children, variant = 'primary', disabled = false }) {
+    const handleClick = (event) => {
+        if (disabled) return;
+        
+        console.log('Button clicked!');
+        onClick && onClick(event);
+    };
+
+    return (
+        <button 
+            className={`btn btn-${variant} ${disabled ? 'disabled' : ''}`}
+            onClick={handleClick}
+            disabled={disabled}
+        >
+            {children}
+        </button>
+    );
+}
+
+// Main App Component
+function App() {
+    const user = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        avatar: '/john-avatar.jpg',
+        isActive: true,
+        bio: 'Full-stack developer passionate about React'
+    };
+
+    const todos = [
+        { id: 1, text: 'Learn React', completed: true, priority: 'high' },
+        { id: 2, text: 'Build a project', completed: false, priority: 'medium' },
+        { id: 3, text: 'Deploy to production', completed: false, priority: 'low' }
+    ];
+
+    return (
+        <div className="app">
+            <Welcome name="React Developer" age={25} />
+            <UserProfile user={user} isLoggedIn={true} />
+            <TodoList todos={todos} />
+            <Button 
+                onClick={() => alert('Hello!')} 
+                variant="primary"
+            >
+                Click Me
+            </Button>
+        </div>
+    );
+}
+
+export default App;</code></pre>
+                </div>
+                
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <ul>
+                        <li><strong>JSX:</strong> JavaScript XML syntax for writing HTML-like code in JavaScript</li>
+                        <li><strong>Props:</strong> Data passed from parent to child components</li>
+                        <li><strong>Conditional Rendering:</strong> Show/hide elements based on conditions</li>
+                        <li><strong>List Rendering:</strong> Use map() to render arrays of data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-content" id="react-hooks">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">React Hooks</span>
+                        <button class="copy-btn" onclick="copyCode('react-hooks-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="react-hooks-code" class="language-jsx">import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+
+// useState Hook
+function Counter() {
+    const [count, setCount] = useState(0);
+    const [name, setName] = useState('');
+
+    const increment = () => setCount(count + 1);
+    const decrement = () => setCount(prev => prev - 1); // Functional update
+    const reset = () => setCount(0);
+
+    return (
+        <div className="counter">
+            <h3>Count: {count}</h3>
+            <button onClick={increment}>+</button>
+            <button onClick={decrement}>-</button>
+            <button onClick={reset}>Reset</button>
+            
+            <input 
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+            />
+            <p>Hello, {name}!</p>
+        </div>
+    );
+}
+
+// useEffect Hook
+function UserProfile({ userId }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Effect with dependency array
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                
+                const response = await fetch(`/api/users/${userId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user');
+                }
+                
+                const userData = await response.json();
+                setUser(userData);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (userId) {
+            fetchUser();
+        }
+    }, [userId]); // Re-run when userId changes
+
+    // Cleanup effect
+    useEffect(() => {
+        const timer = setInterval(() => {
+            console.log('Timer tick');
+        }, 1000);
+
+        // Cleanup function
+        return () => {
+            clearInterval(timer);
+        };
+    }, []); // Empty dependency array = run once
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+    if (!user) return <div>No user found</div>;
+
+    return (
+        <div className="user-profile">
+            <h2>{user.name}</h2>
+            <p>{user.email}</p>
+        </div>
+    );
+}
+
+// useRef Hook
+function FocusInput() {
+    const inputRef = useRef(null);
+    const countRef = useRef(0);
+
+    const focusInput = () => {
+        inputRef.current.focus();
+    };
+
+    const incrementCount = () => {
+        countRef.current += 1;
+        console.log('Count:', countRef.current);
+    };
+
+    return (
+        <div>
+            <input ref={inputRef} type="text" placeholder="Click button to focus" />
+            <button onClick={focusInput}>Focus Input</button>
+            <button onClick={incrementCount}>Increment Count</button>
+        </div>
+    );
+}
+
+// useMemo Hook
+function ExpensiveComponent({ items, filter }) {
+    // Expensive calculation that we want to memoize
+    const filteredItems = useMemo(() => {
+        console.log('Filtering items...');
+        return items.filter(item => 
+            item.name.toLowerCase().includes(filter.toLowerCase())
+        );
+    }, [items, filter]); // Only recalculate when items or filter change
+
+    const itemCount = useMemo(() => {
+        return filteredItems.length;
+    }, [filteredItems]);
+
+    return (
+        <div>
+            <p>Found {itemCount} items</p>
+            <ul>
+                {filteredItems.map(item => (
+                    <li key={item.id}>{item.name}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+// useCallback Hook
+function TodoApp() {
+    const [todos, setTodos] = useState([]);
+    const [filter, setFilter] = useState('all');
+
+    // Memoized callback to prevent unnecessary re-renders
+    const addTodo = useCallback((text) => {
+        const newTodo = {
+            id: Date.now(),
+            text,
+            completed: false
+        };
+        setTodos(prev => [...prev, newTodo]);
+    }, []); // No dependencies, so this function never changes
+
+    const toggleTodo = useCallback((id) => {
+        setTodos(prev => 
+            prev.map(todo => 
+                todo.id === id 
+                    ? { ...todo, completed: !todo.completed }
+                    : todo
+            )
+        );
+    }, []); // No dependencies
+
+    const deleteTodo = useCallback((id) => {
+        setTodos(prev => prev.filter(todo => todo.id !== id));
+    }, []);
+
+    return (
+        <div className="todo-app">
+            <TodoForm onAddTodo={addTodo} />
+            <TodoList 
+                todos={todos} 
+                onToggle={toggleTodo}
+                onDelete={deleteTodo}
+            />
+        </div>
+    );
+}
+
+// Custom Hook
+function useLocalStorage(key, initialValue) {
+    // Get value from localStorage or use initial value
+    const [storedValue, setStoredValue] = useState(() => {
+        try {
+            const item = window.localStorage.getItem(key);
+            return item ? JSON.parse(item) : initialValue;
+        } catch (error) {
+            console.error('Error reading from localStorage:', error);
+            return initialValue;
+        }
+    });
+
+    // Return a wrapped version of useState's setter function that persists the new value to localStorage
+    const setValue = useCallback((value) => {
+        try {
+            // Allow value to be a function so we have the same API as useState
+            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            setStoredValue(valueToStore);
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        } catch (error) {
+            console.error('Error writing to localStorage:', error);
+        }
+    }, [key, storedValue]);
+
+    return [storedValue, setValue];
+}
+
+// Using custom hook
+function Settings() {
+    const [theme, setTheme] = useLocalStorage('theme', 'light');
+    const [language, setLanguage] = useLocalStorage('language', 'en');
+
+    return (
+        <div className="settings">
+            <label>
+                Theme:
+                <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </label>
+            
+            <label>
+                Language:
+                <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                </select>
+            </label>
+        </div>
+    );
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="react-state">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">State Management</span>
+                        <button class="copy-btn" onclick="copyCode('react-state-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="react-state-code" class="language-jsx">import React, { createContext, useContext, useReducer, useState } from 'react';
+
+// Context API for global state
+const ThemeContext = createContext();
+const UserContext = createContext();
+
+// Theme Provider
+function ThemeProvider({ children }) {
+    const [theme, setTheme] = useState('light');
+
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    };
+
+    const value = {
+        theme,
+        toggleTheme
+    };
+
+    return (
+        <ThemeContext.Provider value={value}>
+            {children}
+        </ThemeContext.Provider>
+    );
+}
+
+// Custom hook to use theme
+function useTheme() {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useTheme must be used within a ThemeProvider');
+    }
+    return context;
+}
+
+// useReducer for complex state management
+const initialState = {
+    todos: [],
+    filter: 'all',
+    loading: false,
+    error: null
+};
+
+function todoReducer(state, action) {
+    switch (action.type) {
+        case 'SET_LOADING':
+            return { ...state, loading: action.payload };
+            
+        case 'SET_ERROR':
+            return { ...state, error: action.payload, loading: false };
+            
+        case 'SET_TODOS':
+            return { ...state, todos: action.payload, loading: false, error: null };
+            
+        case 'ADD_TODO':
+            return {
+                ...state,
+                todos: [...state.todos, action.payload]
+            };
+            
+        case 'TOGGLE_TODO':
+            return {
+                ...state,
+                todos: state.todos.map(todo =>
+                    todo.id === action.payload
+                        ? { ...todo, completed: !todo.completed }
+                        : todo
+                )
+            };
+            
+        case 'DELETE_TODO':
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.id !== action.payload)
+            };
+            
+        case 'SET_FILTER':
+            return { ...state, filter: action.payload };
+            
+        default:
+            throw new Error(`Unhandled action type: ${action.type}`);
+    }
+}
+
+// Todo Context Provider
+function TodoProvider({ children }) {
+    const [state, dispatch] = useReducer(todoReducer, initialState);
+
+    // Action creators
+    const addTodo = (text) => {
+        const newTodo = {
+            id: Date.now(),
+            text,
+            completed: false,
+            createdAt: new Date().toISOString()
+        };
+        dispatch({ type: 'ADD_TODO', payload: newTodo });
+    };
+
+    const toggleTodo = (id) => {
+        dispatch({ type: 'TOGGLE_TODO', payload: id });
+    };
+
+    const deleteTodo = (id) => {
+        dispatch({ type: 'DELETE_TODO', payload: id });
+    };
+
+    const setFilter = (filter) => {
+        dispatch({ type: 'SET_FILTER', payload: filter });
+    };
+
+    const loadTodos = async () => {
+        dispatch({ type: 'SET_LOADING', payload: true });
+        try {
+            const response = await fetch('/api/todos');
+            const todos = await response.json();
+            dispatch({ type: 'SET_TODOS', payload: todos });
+        } catch (error) {
+            dispatch({ type: 'SET_ERROR', payload: error.message });
+        }
+    };
+
+    const value = {
+        ...state,
+        addTodo,
+        toggleTodo,
+        deleteTodo,
+        setFilter,
+        loadTodos
+    };
+
+    return (
+        <TodoContext.Provider value={value}>
+            {children}
+        </TodoContext.Provider>
+    );
+}
+
+// Custom hook to use todos
+function useTodos() {
+    const context = useContext(TodoContext);
+    if (!context) {
+        throw new Error('useTodos must be used within a TodoProvider');
+    }
+    return context;
+}
+
+// Component using context
+function TodoApp() {
+    const { theme, toggleTheme } = useTheme();
+    const { 
+        todos, 
+        filter, 
+        loading, 
+        error, 
+        addTodo, 
+        toggleTodo, 
+        deleteTodo, 
+        setFilter 
+    } = useTodos();
+
+    const [newTodoText, setNewTodoText] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (newTodoText.trim()) {
+            addTodo(newTodoText.trim());
+            setNewTodoText('');
+        }
+    };
+
+    const filteredTodos = todos.filter(todo => {
+        switch (filter) {
+            case 'active':
+                return !todo.completed;
+            case 'completed':
+                return todo.completed;
+            default:
+                return true;
+        }
+    });
+
+    return (
+        <div className={`todo-app theme-${theme}`}>
+            <header>
+                <h1>Todo App</h1>
+                <button onClick={toggleTheme}>
+                    Switch to {theme === 'light' ? 'dark' : 'light'} theme
+                </button>
+            </header>
+
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={newTodoText}
+                    onChange={(e) => setNewTodoText(e.target.value)}
+                    placeholder="Add a new todo..."
+                />
+                <button type="submit">Add Todo</button>
+            </form>
+
+            <div className="filters">
+                <button 
+                    className={filter === 'all' ? 'active' : ''}
+                    onClick={() => setFilter('all')}
+                >
+                    All
+                </button>
+                <button 
+                    className={filter === 'active' ? 'active' : ''}
+                    onClick={() => setFilter('active')}
+                >
+                    Active
+                </button>
+                <button 
+                    className={filter === 'completed' ? 'active' : ''}
+                    onClick={() => setFilter('completed')}
+                >
+                    Completed
+                </button>
+            </div>
+
+            {loading && <div className="loading">Loading todos...</div>}
+            {error && <div className="error">Error: {error}</div>}
+
+            <ul className="todo-list">
+                {filteredTodos.map(todo => (
+                    <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+                        <input
+                            type="checkbox"
+                            checked={todo.completed}
+                            onChange={() => toggleTodo(todo.id)}
+                        />
+                        <span>{todo.text}</span>
+                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+
+            <div className="stats">
+                <p>Total: {todos.length}</p>
+                <p>Active: {todos.filter(t => !t.completed).length}</p>
+                <p>Completed: {todos.filter(t => t.completed).length}</p>
+            </div>
+        </div>
+    );
+}
+
+// Main App with Providers
+function App() {
+    return (
+        <ThemeProvider>
+            <TodoProvider>
+                <TodoApp />
+            </TodoProvider>
+        </ThemeProvider>
+    );
+}
+
+export default App;</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="react-advanced">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Advanced Patterns</span>
+                        <button class="copy-btn" onclick="copyCode('react-advanced-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="react-advanced-code" class="language-jsx">import React, { memo, lazy, Suspense, forwardRef, useImperativeHandle } from 'react';
+
+// Higher-Order Component (HOC)
+function withLoading(WrappedComponent) {
+    return function WithLoadingComponent(props) {
+        if (props.loading) {
+            return <div className="loading">Loading...</div>;
+        }
+        return <WrappedComponent {...props} />;
+    };
+}
+
+// Render Props Pattern
+function DataFetcher({ url, children }) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(url);
+                const result = await response.json();
+                setData(result);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [url]);
+
+    return children({ data, loading, error });
+}
+
+// Usage of Render Props
+function UserList() {
+    return (
+        <DataFetcher url="/api/users">
+            {({ data, loading, error }) => {
+                if (loading) return <div>Loading users...</div>;
+                if (error) return <div>Error: {error}</div>;
+                
+                return (
+                    <ul>
+                        {data?.map(user => (
+                            <li key={user.id}>{user.name}</li>
+                        ))}
+                    </ul>
+                );
+            }}
+        </DataFetcher>
+    );
+}
+
+// React.memo for performance optimization
+const ExpensiveComponent = memo(function ExpensiveComponent({ data, onUpdate }) {
+    console.log('ExpensiveComponent rendered');
+    
+    return (
+        <div>
+            <h3>Expensive Component</h3>
+            <p>Data: {JSON.stringify(data)}</p>
+            <button onClick={onUpdate}>Update</button>
+        </div>
+    );
+}, (prevProps, nextProps) => {
+    // Custom comparison function
+    return prevProps.data.id === nextProps.data.id;
+});
+
+// forwardRef for ref forwarding
+const FancyInput = forwardRef(function FancyInput(props, ref) {
+    const inputRef = useRef();
+
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            inputRef.current.focus();
+        },
+        getValue: () => {
+            return inputRef.current.value;
+        },
+        clear: () => {
+            inputRef.current.value = '';
+        }
+    }));
+
+    return (
+        <div className="fancy-input">
+            <label>{props.label}</label>
+            <input
+                ref={inputRef}
+                type={props.type || 'text'}
+                placeholder={props.placeholder}
+                {...props}
+            />
+        </div>
+    );
+});
+
+// Compound Components Pattern
+function Tabs({ children, defaultTab = 0 }) {
+    const [activeTab, setActiveTab] = useState(defaultTab);
+
+    return (
+        <div className="tabs">
+            {React.Children.map(children, (child, index) => {
+                if (child.type === TabList) {
+                    return React.cloneElement(child, { activeTab, setActiveTab });
+                }
+                if (child.type === TabPanels) {
+                    return React.cloneElement(child, { activeTab });
+                }
+                return child;
+            })}
+        </div>
+    );
+}
+
+function TabList({ children, activeTab, setActiveTab }) {
+    return (
+        <div className="tab-list">
+            {React.Children.map(children, (child, index) => {
+                return React.cloneElement(child, {
+                    isActive: index === activeTab,
+                    onClick: () => setActiveTab(index)
+                });
+            })}
+        </div>
+    );
+}
+
+function Tab({ children, isActive, onClick }) {
+    return (
+        <button
+            className={`tab ${isActive ? 'active' : ''}`}
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    );
+}
+
+function TabPanels({ children, activeTab }) {
+    return (
+        <div className="tab-panels">
+            {React.Children.toArray(children)[activeTab]}
+        </div>
+    );
+}
+
+function TabPanel({ children }) {
+    return <div className="tab-panel">{children}</div>;
+}
+
+// Usage of Compound Components
+function TabExample() {
+    return (
+        <Tabs defaultTab={0}>
+            <TabList>
+                <Tab>Profile</Tab>
+                <Tab>Settings</Tab>
+                <Tab>Billing</Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel>
+                    <h3>Profile Content</h3>
+                    <p>Your profile information goes here.</p>
+                </TabPanel>
+                <TabPanel>
+                    <h3>Settings Content</h3>
+                    <p>Your settings go here.</p>
+                </TabPanel>
+                <TabPanel>
+                    <h3>Billing Content</h3>
+                    <p>Your billing information goes here.</p>
+                </TabPanel>
+            </TabPanels>
+        </Tabs>
+    );
+}
+
+// Error Boundary
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        console.error('Error caught by boundary:', error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return (
+                <div className="error-boundary">
+                    <h2>Something went wrong!</h2>
+                    <p>{this.state.error?.message}</p>
+                    <button onClick={() => this.setState({ hasError: false, error: null })}>
+                        Try again
+                    </button>
+                </div>
+            );
+        }
+
+        return this.props.children;
+    }
+}
+
+// Lazy loading with Suspense
+const LazyComponent = lazy(() => import('./LazyComponent'));
+
+function App() {
+    const fancyInputRef = useRef();
+    const [data, setData] = useState({ id: 1, name: 'Test' });
+
+    const handleFocusInput = () => {
+        fancyInputRef.current.focus();
+    };
+
+    const handleGetValue = () => {
+        const value = fancyInputRef.current.getValue();
+        alert(`Input value: ${value}`);
+    };
+
+    return (
+        <ErrorBoundary>
+            <div className="app">
+                <h1>Advanced React Patterns</h1>
+                
+                {/* forwardRef usage */}
+                <FancyInput
+                    ref={fancyInputRef}
+                    label="Fancy Input"
+                    placeholder="Type something..."
+                />
+                <button onClick={handleFocusInput}>Focus Input</button>
+                <button onClick={handleGetValue}>Get Value</button>
+
+                {/* Memoized component */}
+                <ExpensiveComponent
+                    data={data}
+                    onUpdate={() => setData({ ...data, name: 'Updated' })}
+                />
+
+                {/* Compound components */}
+                <TabExample />
+
+                {/* Lazy loading */}
+                <Suspense fallback={<div>Loading lazy component...</div>}>
+                    <LazyComponent />
+                </Suspense>
+
+                {/* Render props */}
+                <UserList />
+            </div>
+        </ErrorBoundary>
+    );
+}
+
+export default App;</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube Channels -->
+        <div class="youtube-channels" data-aos="fade-up" data-aos-delay="600">
+            <h3><i class="fab fa-youtube"></i> Best YouTube Channels</h3>
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>React</h4>
+                        <p>Official React channel with latest updates and tutorials</p>
+                        <a href="https://youtube.com/@reactjs" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Traversy Media</h4>
+                        <p>React crash courses and practical projects</p>
+                        <a href="https://youtube.com/@TraversyMedia" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Codevolution</h4>
+                        <p>Comprehensive React tutorial series</p>
+                        <a href="https://youtube.com/@Codevolution" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Ben Awad</h4>
+                        <p>Advanced React patterns and best practices</p>
+                        <a href="https://youtube.com/@BenAwad97" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Projects -->
+        <div class="practice-projects" data-aos="fade-up" data-aos-delay="800">
+            <h3><i class="fas fa-project-diagram"></i> Practice Projects</h3>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h4>Calculator App</h4>
+                    <p>Build a functional calculator with React hooks and state</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">useState</span>
+                        <span class="skill-tag">Event Handling</span>
+                        <span class="skill-tag">Components</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-weather-sun"></i>
+                    </div>
+                    <h4>Weather App</h4>
+                    <p>Fetch weather data from API and display with React</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">useEffect</span>
+                        <span class="skill-tag">API Calls</span>
+                        <span class="skill-tag">Conditional Rendering</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h4>E-commerce Frontend</h4>
+                    <p>Complete shopping cart with React Router and Context API</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Context API</span>
+                        <span class="skill-tag">React Router</span>
+                        <span class="skill-tag">State Management</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Node.js Section -->
+<section class="tech-section" id="nodejs">
+    <div class="section-container">
+        <div class="tech-header" data-aos="fade-up">
+            <div class="tech-icon nodejs">
+                <i class="fab fa-node-js"></i>
+            </div>
+            <h2 class="tech-title">Node.js - Runtime Environment</h2>
+            <p class="tech-description">
+                Master Node.js, the JavaScript runtime that enables server-side development. 
+                Learn modules, file system, streams, and building scalable applications.
+            </p>
+        </div>
+
+        <!-- Learning Roadmap -->
+        <div class="learning-roadmap" data-aos="fade-up" data-aos-delay="200">
+            <h3><i class="fas fa-route"></i> Learning Roadmap</h3>
+            <div class="roadmap-steps">
+                <div class="roadmap-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Basics & Modules</h4>
+                        <p>Understanding Node.js runtime, modules, and package management</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>File System & Streams</h4>
+                        <p>Working with files, streams, and asynchronous operations</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>HTTP & Networking</h4>
+                        <p>Creating servers, handling requests, and networking concepts</p>
+                    </div>
+                </div>
+                <div class="roadmap-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Advanced Topics</h4>
+                        <p>Clustering, worker threads, performance optimization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="code-examples" data-aos="fade-up" data-aos-delay="400">
+            <h3><i class="fas fa-code"></i> Code Examples</h3>
+            
+            <div class="example-tabs">
+                <button class="example-tab active" data-example="node-basic">Basics & Modules</button>
+                <button class="example-tab" data-example="node-fs">File System</button>
+                <button class="example-tab" data-example="node-http">HTTP Server</button>
+                <button class="example-tab" data-example="node-advanced">Advanced Features</button>
+            </div>
+
+            <div class="example-content active" id="node-basic">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Node.js Basics & Modules</span>
+                        <button class="copy-btn" onclick="copyCode('node-basic-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="node-basic-code" class="language-javascript">// Global objects in Node.js
+console.log('Current directory:', __dirname);
+console.log('Current file:', __filename);
+console.log('Process ID:', process.pid);
+console.log('Node version:', process.version);
+console.log('Platform:', process.platform);
+
+// Environment variables
+console.log('Environment:', process.env.NODE_ENV || 'development');
+console.log('Port:', process.env.PORT || 3000);
+
+// Command line arguments
+console.log('Arguments:', process.argv);
+
+// Creating a custom module (math.js)
+// math.js
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if (b === 0) {
+        throw new Error('Division by zero');
+    }
+    return a / b;
+}
+
+// Export methods
+module.exports = {
+    add,
+    subtract,
+    multiply,
+    divide
+};
+
+// Alternative export syntax
+// exports.add = add;
+// exports.subtract = subtract;
+
+// Using the custom module (app.js)
+const math = require('./math');
+// Or destructuring
+const { add, subtract } = require('./math');
+
+console.log('Addition:', math.add(5, 3));
+console.log('Subtraction:', subtract(10, 4));
+
+// Built-in modules
+const path = require('path');
+const os = require('os');
+const crypto = require('crypto');
+
+// Path module
+const filePath = '/users/john/documents/file.txt';
+console.log('Directory:', path.dirname(filePath));
+console.log('Filename:', path.basename(filePath));
+console.log('Extension:', path.extname(filePath));
+console.log('Parsed:', path.parse(filePath));
+
+// Join paths
+const fullPath = path.join(__dirname, 'uploads', 'images', 'photo.jpg');
+console.log('Full path:', fullPath);
+
+// OS module
+console.log('OS Platform:', os.platform());
+console.log('OS Architecture:', os.arch());
+console.log('Free memory:', os.freemem());
+console.log('Total memory:', os.totalmem());
+console.log('CPU info:', os.cpus());
+
+// Crypto module
+const hash = crypto.createHash('sha256');
+hash.update('Hello World');
+console.log('Hash:', hash.digest('hex'));
+
+// Generate random bytes
+const randomBytes = crypto.randomBytes(16);
+console.log('Random bytes:', randomBytes.toString('hex'));
+
+// Event Emitter
+const EventEmitter = require('events');
+
+class MyEmitter extends EventEmitter {}
+const myEmitter = new MyEmitter();
+
+// Register event listener
+myEmitter.on('message', (data) => {
+    console.log('Received message:', data);
+});
+
+// Emit event
+myEmitter.emit('message', 'Hello from EventEmitter!');
+
+// Error handling
+myEmitter.on('error', (error) => {
+    console.error('Error occurred:', error.message);
+});
+
+// Process events
+process.on('exit', (code) => {
+    console.log(`Process exiting with code: ${code}`);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});</code></pre>
+                </div>
+                
+                <div class="explanation">
+                    <h4><i class="fas fa-lightbulb"></i> Explanation</h4>
+                    <ul>
+                        <li><strong>Global Objects:</strong> __dirname, __filename, process are available globally</li>
+                        <li><strong>Modules:</strong> Use require() to import and module.exports to export</li>
+                        <li><strong>Built-in Modules:</strong> Node.js provides many useful built-in modules</li>
+                        <li><strong>Event Emitter:</strong> Core pattern for handling asynchronous events</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-content" id="node-fs">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">File System Operations</span>
+                        <button class="copy-btn" onclick="copyCode('node-fs-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="node-fs-code" class="language-javascript">const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+
+// Promisify fs methods for async/await
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+const mkdir = promisify(fs.mkdir);
+const readdir = promisify(fs.readdir);
+const stat = promisify(fs.stat);
+
+// Or use fs.promises (Node.js 10+)
+const fsPromises = fs.promises;
+
+// Synchronous file operations (blocking)
+try {
+    const data = fs.readFileSync('input.txt', 'utf8');
+    console.log('File content:', data);
+    
+    fs.writeFileSync('output.txt', 'Hello World!', 'utf8');
+    console.log('File written successfully');
+} catch (error) {
+    console.error('Sync operation error:', error.message);
+}
+
+// Asynchronous file operations (non-blocking)
+fs.readFile('input.txt', 'utf8', (err, data) => {
+    if (err) {
+        console.error('Error reading file:', err.message);
+        return;
+    }
+    console.log('File content:', data);
+});
+
+fs.writeFile('output.txt', 'Hello Async World!', 'utf8', (err) => {
+    if (err) {
+        console.error('Error writing file:', err.message);
+        return;
+    }
+    console.log('File written successfully');
+});
+
+// Promise-based file operations
+async function fileOperations() {
+    try {
+        // Read file
+        const data = await readFile('input.txt', 'utf8');
+        console.log('File content:', data);
+        
+        // Write file
+        await writeFile('output.txt', 'Hello Promise World!', 'utf8');
+        console.log('File written successfully');
+        
+        // Create directory
+        await mkdir('uploads', { recursive: true });
+        console.log('Directory created');
+        
+        // Read directory
+        const files = await readdir('.');
+        console.log('Files in current directory:', files);
+        
+        // Get file stats
+        const stats = await stat('output.txt');
+        console.log('File stats:', {
+            size: stats.size,
+            isFile: stats.isFile(),
+            isDirectory: stats.isDirectory(),
+            created: stats.birthtime,
+            modified: stats.mtime
+        });
+        
+    } catch (error) {
+        console.error('File operation error:', error.message);
+    }
+}
+
+fileOperations();
+
+// Working with streams
+const stream = require('stream');
+
+// Readable stream
+class NumberStream extends stream.Readable {
+    constructor(options) {
+        super(options);
+        this.current = 0;
+        this.max = 5;
+    }
+    
+    _read() {
+        if (this.current < this.max) {
+            this.push(`Number: ${this.current}\n`);
+            this.current++;
+        } else {
+            this.push(null); // End of stream
+        }
+    }
+}
+
+// Transform stream
+class UpperCaseTransform extends stream.Transform {
+    _transform(chunk, encoding, callback) {
+        this.push(chunk.toString().toUpperCase());
+        callback();
+    }
+}
+
+// Writable stream
+class LogStream extends stream.Writable {
+    _write(chunk, encoding, callback) {
+        console.log('Log:', chunk.toString().trim());
+        callback();
+    }
+}
+
+// Using streams
+const numberStream = new NumberStream();
+const upperCaseTransform = new UpperCaseTransform();
+const logStream = new LogStream();
+
+// Pipe streams together
+numberStream
+    .pipe(upperCaseTransform)
+    .pipe(logStream);
+
+// File streaming
+function copyFileWithStream(source, destination) {
+    const readStream = fs.createReadStream(source);
+    const writeStream = fs.createWriteStream(destination);
+    
+    readStream.on('error', (err) => {
+        console.error('Read stream error:', err.message);
+    });
+    
+    writeStream.on('error', (err) => {
+        console.error('Write stream error:', err.message);
+    });
+    
+    writeStream.on('finish', () => {
+        console.log('File copied successfully');
+    });
+    
+    readStream.pipe(writeStream);
+}
+
+// Usage
+copyFileWithStream('input.txt', 'copy.txt');
+
+// Watch for file changes
+fs.watchFile('input.txt', (curr, prev) => {
+    console.log('File changed!');
+    console.log('Previous modified time:', prev.mtime);
+    console.log('Current modified time:', curr.mtime);
+});
+
+// Watch directory for changes
+fs.watch('.', (eventType, filename) => {
+    console.log(`Event: ${eventType}, File: ${filename}`);
+});
+
+// Buffer operations
+const buffer = Buffer.from('Hello World', 'utf8');
+console.log('Buffer:', buffer);
+console.log('Buffer as string:', buffer.toString());
+console.log('Buffer as hex:', buffer.toString('hex'));
+console.log('Buffer as base64:', buffer.toString('base64'));
+
+// Create buffer from array
+const bufferFromArray = Buffer.from([72, 101, 108, 108, 111]);
+console.log('Buffer from array:', bufferFromArray.toString());
+
+// Buffer concatenation
+const buffer1 = Buffer.from('Hello ');
+const buffer2 = Buffer.from('World');
+const combined = Buffer.concat([buffer1, buffer2]);
+console.log('Combined buffer:', combined.toString());</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="node-http">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">HTTP Server & Client</span>
+                        <button class="copy-btn" onclick="copyCode('node-http-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="node-http-code" class="language-javascript">const http = require('http');
+const https = require('https');
+const url = require('url');
+const querystring = require('querystring');
+const fs = require('fs');
+const path = require('path');
+
+// Basic HTTP server
+const server = http.createServer((req, res) => {
+    const parsedUrl = url.parse(req.url, true);
+    const pathname = parsedUrl.pathname;
+    const query = parsedUrl.query;
+    const method = req.method;
+    
+    console.log(`${method} ${pathname}`);
+    
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
+    // Handle different routes
+    if (pathname === '/' && method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(`
+            <h1>Welcome to Node.js Server</h1>
+            <p>Current time: ${new Date().toISOString()}</p>
+            <a href="/api/users">View Users API</a>
+        `);
+        
+    } else if (pathname === '/api/users' && method === 'GET') {
+        const users = [
+            { id: 1, name: 'John Doe', email: 'john@example.com' },
+            { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+        ];
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ users, count: users.length }));
+        
+    } else if (pathname === '/api/users' && method === 'POST') {
+        let body = '';
+        
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        
+        req.on('end', () => {
+            try {
+                const userData = JSON.parse(body);
+                const newUser = {
+                    id: Date.now(),
+                    name: userData.name,
+                    email: userData.email,
+                    createdAt: new Date().toISOString()
+                };
+                
+                res.writeHead(201, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ 
+                    message: 'User created', 
+                    user: newUser 
+                }));
+            } catch (error) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Invalid JSON' }));
+            }
+        });
+        
+    } else if (pathname.startsWith('/static/')) {
+        // Serve static files
+        const filePath = path.join(__dirname, pathname);
+        
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('File not found');
+                return;
+            }
+            
+            const ext = path.extname(filePath);
+            const contentType = getContentType(ext);
+            
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.end(data);
+        });
+        
+    } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Route not found' }));
+    }
+});
+
+// Helper function for content types
+function getContentType(ext) {
+    const types = {
+        '.html': 'text/html',
+        '.css': 'text/css',
+        '.js': 'application/javascript',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.gif': 'image/gif',
+        '.svg': 'image/svg+xml'
+    };
+    return types[ext] || 'text/plain';
+}
+
+// Start server
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM received, shutting down gracefully');
+    server.close(() => {
+        console.log('Server closed');
+        process.exit(0);
+    });
+});
+
+// HTTP Client - Making requests
+function makeHttpRequest(url, options = {}) {
+    return new Promise((resolve, reject) => {
+        const protocol = url.startsWith('https') ? https : http;
+        
+        const req = protocol.request(url, options, (res) => {
+            let data = '';
+            
+            res.on('data', chunk => {
+                data += chunk;
+            });
+            
+            res.on('end', () => {
+                try {
+                    const result = {
+                        statusCode: res.statusCode,
+                        headers: res.headers,
+                        data: res.headers['content-type']?.includes('application/json') 
+                            ? JSON.parse(data) 
+                            : data
+                    };
+                    resolve(result);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        });
+        
+        req.on('error', reject);
+        
+        if (options.body) {
+            req.write(options.body);
+        }
+        
+        req.end();
+    });
+}
+
+// Usage examples
+async function httpClientExamples() {
+    try {
+        // GET request
+        const getResponse = await makeHttpRequest('http://localhost:3000/api/users');
+        console.log('GET Response:', getResponse);
+        
+        // POST request
+        const postResponse = await makeHttpRequest('http://localhost:3000/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: 'Alice Johnson',
+                email: 'alice@example.com'
+            })
+        });
+        console.log('POST Response:', postResponse);
+        
+    } catch (error) {
+        console.error('HTTP Client Error:', error.message);
+    }
+}
+
+// Run client examples after server starts
+setTimeout(httpClientExamples, 1000);
+
+// WebSocket-like functionality with Server-Sent Events
+function setupSSE() {
+    const sseServer = http.createServer((req, res) => {
+        if (req.url === '/events') {
+            res.writeHead(200, {
+                'Content-Type': 'text/event-stream',
+                'Cache-Control': 'no-cache',
+                'Connection': 'keep-alive',
+                'Access-Control-Allow-Origin': '*'
+            });
+            
+            // Send initial message
+            res.write('data: Connected to SSE\n\n');
+            
+            // Send periodic updates
+            const interval = setInterval(() => {
+                const data = {
+                    timestamp: new Date().toISOString(),
+                    message: 'Server update',
+                    random: Math.random()
+                };
+                
+                res.write(`data: ${JSON.stringify(data)}\n\n`);
+            }, 5000);
+            
+            // Clean up on client disconnect
+            req.on('close', () => {
+                clearInterval(interval);
+                console.log('SSE client disconnected');
+            });
+            
+        } else {
+            res.writeHead(404);
+            res.end('Not found');
+        }
+    });
+    
+    sseServer.listen(3001, () => {
+        console.log('SSE Server running on http://localhost:3001');
+    });
+}
+
+setupSSE();</code></pre>
+                </div>
+            </div>
+
+            <div class="example-content" id="node-advanced">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Advanced Node.js Features</span>
+                        <button class="copy-btn" onclick="copyCode('node-advanced-code')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <pre><code id="node-advanced-code" class="language-javascript">const cluster = require('cluster');
+const os = require('os');
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
+const { performance } = require('perf_hooks');
+const util = require('util');
+
+// Clustering for multi-core utilization
+if (cluster.isMaster) {
+    console.log(`Master process ${process.pid} is running`);
+    
+    // Fork workers equal to CPU cores
+    const numCPUs = os.cpus().length;
+    console.log(`Forking ${numCPUs} workers`);
+    
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
+    
+    cluster.on('exit', (worker, code, signal) => {
+        console.log(`Worker ${worker.process.pid} died`);
+        console.log('Starting a new worker');
+        cluster.fork();
+    });
+    
+} else {
+    // Worker process
+    const http = require('http');
+    
+    const server = http.createServer((req, res) => {
+        // Simulate CPU-intensive work
+        const start = Date.now();
+        while (Date.now() - start < 100) {
+            // Busy wait for 100ms
+        }
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+            message: 'Hello from worker',
+            pid: process.pid,
+            worker: cluster.worker.id
+        }));
+    });
+    
+    server.listen(3000, () => {
+        console.log(`Worker ${process.pid} started`);
+    });
+}
+
+// Worker Threads for CPU-intensive tasks
+function runWorkerThread(data) {
+    return new Promise((resolve, reject) => {
+        const worker = new Worker(`
+            const { parentPort, workerData } = require('worker_threads');
+            
+            // CPU-intensive task: calculate prime numbers
+            function isPrime(n) {
+                if (n < 2) return false;
+                for (let i = 2; i <= Math.sqrt(n); i++) {
+                    if (n % i === 0) return false;
+                }
+                return true;
+            }
+            
+            function findPrimes(start, end) {
+                const primes = [];
+                for (let i = start; i <= end; i++) {
+                    if (isPrime(i)) {
+                        primes.push(i);
+                    }
+                }
+                return primes;
+            }
+            
+            const { start, end } = workerData;
+            const result = findPrimes(start, end);
+            parentPort.postMessage(result);
+        `, {
+            eval: true,
+            workerData: data
+        });
+        
+        worker.on('message', resolve);
+        worker.on('error', reject);
+        worker.on('exit', (code) => {
+            if (code !== 0) {
+                reject(new Error(`Worker stopped with exit code ${code}`));
+            }
+        });
+    });
+}
+
+// Performance monitoring
+async function performanceExample() {
+    console.log('\n--- Performance Monitoring ---');
+    
+    // Mark start time
+    performance.mark('start');
+    
+    // CPU-intensive task without worker thread
+    const start1 = performance.now();
+    let count = 0;
+    for (let i = 0; i < 1000000; i++) {
+        count += Math.sqrt(i);
+    }
+    const end1 = performance.now();
+    console.log(`Main thread calculation: ${end1 - start1}ms`);
+    
+    // CPU-intensive task with worker thread
+    const start2 = performance.now();
+    try {
+        const primes = await runWorkerThread({ start: 1, end: 10000 });
+        const end2 = performance.now();
+        console.log(`Worker thread calculation: ${end2 - start2}ms`);
+        console.log(`Found ${primes.length} prime numbers`);
+    } catch (error) {
+        console.error('Worker thread error:', error.message);
+    }
+    
+    // Mark end time
+    performance.mark('end');
+    performance.measure('total', 'start', 'end');
+    
+    const measure = performance.getEntriesByName('total')[0];
+    console.log(`Total execution time: ${measure.duration}ms`);
+}
+
+// Memory usage monitoring
+function monitorMemory() {
+    const memUsage = process.memoryUsage();
+    console.log('\n--- Memory Usage ---');
+    console.log(`RSS: ${Math.round(memUsage.rss / 1024 / 1024)} MB`);
+    console.log(`Heap Total: ${Math.round(memUsage.heapTotal / 1024 / 1024)} MB`);
+    console.log(`Heap Used: ${Math.round(memUsage.heapUsed / 1024 / 1024)} MB`);
+    console.log(`External: ${Math.round(memUsage.external / 1024 / 1024)} MB`);
+}
+
+// Custom utility functions
+const sleep = util.promisify(setTimeout);
+
+async function asyncExample() {
+    console.log('\n--- Async Operations ---');
+    
+    console.log('Starting async operations...');
+    
+    // Parallel execution
+    const start = performance.now();
+    const promises = [
+        sleep(1000).then(() => 'Task 1 completed'),
+        sleep(1500).then(() => 'Task 2 completed'),
+        sleep(800).then(() => 'Task 3 completed')
+    ];
+    
+    const results = await Promise.all(promises);
+    const end = performance.now();
+    
+    console.log('Results:', results);
+    console.log(`Parallel execution time: ${end - start}ms`);
+    
+    // Sequential execution
+    const start2 = performance.now();
+    await sleep(1000);
+    console.log('Task 1 completed');
+    await sleep(1500);
+    console.log('Task 2 completed');
+    await sleep(800);
+    console.log('Task 3 completed');
+    const end2 = performance.now();
+    
+    console.log(`Sequential execution time: ${end2 - start2}ms`);
+}
+
+// Error handling and debugging
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    // Log error to file or external service
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Log error and continue or exit based on severity
+});
+
+// Debugging utilities
+function debugInfo() {
+    console.log('\n--- Debug Information ---');
+    console.log('Node.js version:', process.version);
+    console.log('Platform:', process.platform);
+    console.log('Architecture:', process.arch);
+    console.log('Process ID:', process.pid);
+    console.log('Parent Process ID:', process.ppid);
+    console.log('Current working directory:', process.cwd());
+    console.log('Execution path:', process.execPath);
+    console.log('Command line arguments:', process.argv);
+    console.log('Environment variables:', Object.keys(process.env).length);
+    console.log('Uptime:', `${Math.round(process.uptime())} seconds`);
+}
+
+// Custom stream for logging
+const { Writable } = require('stream');
+
+class Logger extends Writable {
+    constructor(options) {
+        super(options);
+        this.logLevel = options.logLevel || 'info';
+    }
+    
+    _write(chunk, encoding, callback) {
+        const timestamp = new Date().toISOString();
+        const message = chunk.toString().trim();
+        console.log(`[${timestamp}] [${this.logLevel.toUpperCase()}] ${message}`);
+        callback();
+    }
+}
+
+// Usage
+const logger = new Logger({ logLevel: 'debug' });
+logger.write('This is a debug message\n');
+
+// Run examples
+if (require.main === module) {
+    debugInfo();
+    monitorMemory();
+    performanceExample();
+    asyncExample();
+    
+    // Monitor memory every 5 seconds
+    setInterval(monitorMemory, 5000);
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube Channels -->
+        <div class="youtube-channels" data-aos="fade-up" data-aos-delay="600">
+            <h3><i class="fab fa-youtube"></i> Best YouTube Channels</h3>
+            <div class="channels-grid">
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Traversy Media</h4>
+                        <p>Node.js tutorials and full-stack development</p>
+                        <a href="https://youtube.com/@TraversyMedia" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>The Net Ninja</h4>
+                        <p>Complete Node.js course from basics to advanced</p>
+                        <a href="https://youtube.com/@NetNinja" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Node.js</h4>
+                        <p>Official Node.js channel with latest updates</p>
+                        <a href="https://youtube.com/@nodejs-foundation" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="channel-card">
+                    <div class="channel-avatar">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="channel-info">
+                        <h4>Fireship</h4>
+                        <p>Quick Node.js tips and modern development practices</p>
+                        <a href="https://youtube.com/@Fireship" target="_blank" class="channel-link">
+                            <i class="fas fa-external-link-alt"></i> Visit Channel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Projects -->
+        <div class="practice-projects" data-aos="fade-up" data-aos-delay="800">
+            <h3><i class="fas fa-project-diagram"></i> Practice Projects</h3>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h4>CLI Tool</h4>
+                    <p>Build a command-line tool with Node.js and npm</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">CLI</span>
+                        <span class="skill-tag">File System</span>
+                        <span class="skill-tag">NPM</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4>Web Scraper</h4>
+                    <p>Create a web scraper with HTTP requests and data parsing</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">HTTP</span>
+                        <span class="skill-tag">Streams</span>
+                        <span class="skill-tag">Data Processing</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h4>File Upload Service</h4>
+                    <p>Build a file upload service with streams and validation</p>
+                    <div class="project-skills">
+                        <span class="skill-tag">Streams</span>
+                        <span class="skill-tag">Buffers</span>
+                        <span class="skill-tag">Validation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional Resources Section -->
+<section class="resources-section">
+    <div class="section-container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Additional Learning Resources</h2>
+            <p class="section-subtitle">Expand your knowledge with these curated resources</p>
+        </div>
+
+        <div class="resources-grid" data-aos="fade-up" data-aos-delay="200">
+            <div class="resource-category">
+                <div class="category-header">
+                    <i class="fas fa-book"></i>
+                    <h3>Documentation</h3>
+                </div>
+                <div class="resource-links">
+                    <a href="https://docs.mongodb.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-leaf"></i> MongoDB Docs
+                    </a>
+                    <a href="https://expressjs.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-server"></i> Express.js Guide
+                    </a>
+                    <a href="https://react.dev/" target="_blank" class="resource-link">
+                        <i class="fab fa-react"></i> React Documentation
+                    </a>
+                    <a href="https://nodejs.org/docs/" target="_blank" class="resource-link">
+                        <i class="fab fa-node-js"></i> Node.js Docs
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-category">
+                <div class="category-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Online Courses</h3>
+                </div>
+                <div class="resource-links">
+                    <a href="https://www.freecodecamp.org/" target="_blank" class="resource-link">
+                        <i class="fab fa-free-code-camp"></i> FreeCodeCamp
+                    </a>
+                    <a href="https://www.udemy.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-play"></i> Udemy Courses
+                    </a>
+                    <a href="https://www.coursera.org/" target="_blank" class="resource-link">
+                        <i class="fas fa-university"></i> Coursera
+                    </a>
+                    <a href="https://www.pluralsight.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-video"></i> Pluralsight
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-category">
+                <div class="category-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Practice Platforms</h3>
+                </div>
+                <div class="resource-links">
+                    <a href="https://codepen.io/" target="_blank" class="resource-link">
+                        <i class="fab fa-codepen"></i> CodePen
+                    </a>
+                    <a href="https://codesandbox.io/" target="_blank" class="resource-link">
+                        <i class="fas fa-cube"></i> CodeSandbox
+                    </a>
+                    <a href="https://replit.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-terminal"></i> Replit
+                    </a>
+                    <a href="https://stackblitz.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-bolt"></i> StackBlitz
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource-category">
+                <div class="category-header">
+                    <i class="fas fa-users"></i>
+                    <h3>Communities</h3>
+                </div>
+                <div class="resource-links">
+                    <a href="https://stackoverflow.com/" target="_blank" class="resource-link">
+                        <i class="fab fa-stack-overflow"></i> Stack Overflow
+                    </a>
+                    <a href="https://dev.to/" target="_blank" class="resource-link">
+                        <i class="fab fa-dev"></i> Dev.to
+                    </a>
+                    <a href="https://www.reddit.com/r/webdev/" target="_blank" class="resource-link">
+                        <i class="fab fa-reddit"></i> r/webdev
+                    </a>
+                    <a href="https://discord.gg/programming" target="_blank" class="resource-link">
+                        <i class="fab fa-discord"></i> Programming Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Learn Page Specific Styles */
+.learn-hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: var(--space-3xl) 0;
+    position: relative;
+}
+
+.learning-stats {
+    display: flex;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    justify-content: center;
+}
+
+.learning-nav {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+}
+
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: transparent;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-full);
+    color: var(--dark-900);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: var(--transition-normal);
+    z-index: -1;
+}
+
+.nav-tab:hover::before,
+.nav-tab.active::before {
+    opacity: 1;
+}
+
+.nav-tab:hover,
+.nav-tab.active {
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tech-section {
+    display: none;
+    padding: var(--space-3xl) 0;
+}
+
+.tech-section.active {
+    display: block;
+}
+
+.tech-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+}
+
+.tech-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    margin: 0 auto var(--space-lg);
+    box-shadow: var(--shadow-xl);
+    position: relative;
+}
+
+.tech-icon::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    background: inherit;
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(8px);
+    z-index: -1;
+    animation: techGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes techGlow {
+    from {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
+
+.tech-icon.mongodb {
+    background: linear-gradient(135deg, #47a248 0%, #4db33d 100%);
+}
+
+.tech-icon.express {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+}
+
+.tech-icon.react {
+    background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%);
+}
+
+.tech-icon.nodejs {
+    background: linear-gradient(135deg, #339933 0%, #68cc45 100%);
+}
+
+.tech-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tech-description {
+    font-size: 1.2rem;
+    color: var(--gray-400);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.learning-roadmap {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.learning-roadmap h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    color: var(--dark-900);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.roadmap-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+}
+
+.roadmap-step {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-normal);
+    border: 2px solid transparent;
+}
+
+.roadmap-step:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+    background: white;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-md);
+}
+
+.step-content h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--dark-900);
+}
+
+.step-content p {
+    color: var(--gray-400);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.code-examples {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.code-examples h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    color: var(--dark-900);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.example-tabs {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.example-tab {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-200);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--dark-900);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    font-size: 0.9rem;
+}
+
+.example-tab:hover {
+    background: var(--gray-300);
+}
+
+.example-tab.active {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.example-content {
+    display: none;
+}
+
+.example-content.active {
+    display: block;
+}
+
+.code-block {
+    background: var(--dark-800);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.code-header {
+    background: var(--dark-700);
+    padding: var(--space-md) var(--space-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-title {
+    color: var(--gray-300);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.copy-btn {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.8rem;
+}
+
+.copy-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.code-block pre {
+    margin: 0;
+    padding: var(--space-lg);
+    overflow-x: auto;
+    background: transparent;
+}
+
+.code-block code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gray-300);
+}
+
+.explanation {
+    background: rgba(102, 126, 234, 0.05);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-left: 4px solid var(--primary-color);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+}
+
+.explanation h4 {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.explanation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.explanation li {
+    margin-bottom: var(--space-sm);
+    color: var(--dark-900);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.explanation li::before {
+    content: "•";
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.explanation strong {
+    color: var(--primary-color);
+}
+
+.youtube-channels {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.youtube-channels h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    color: var(--dark-900);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.youtube-channels h3 i {
+    color: #ff0000;
+}
+
+.channels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+}
+
+.channel-card {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-normal);
+    border: 2px solid transparent;
+}
+
+.channel-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: #ff0000;
+    background: white;
+}
+
+.channel-avatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-md);
+}
+
+.channel-info h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+    color: var(--dark-900);
+}
+
+.channel-info p {
+    color: var(--gray-400);
+    margin-bottom: var(--space-sm);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.channel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: #ff0000;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition-normal);
+}
+
+.channel-link:hover {
+    color: #cc0000;
+    transform: translateX(3px);
+}
+
+.practice-projects {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.practice-projects h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    color: var(--dark-900);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+}
+
+.project-card {
+    padding: var(--space-xl);
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-normal);
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+    background: white;
+}
+
+.project-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto var(--space-lg);
+    box-shadow: var(--shadow-glow);
+}
+
+.project-card h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: var(--space-sm);
+    color: var(--dark-900);
+}
+
+.project-card p {
+    color: var(--gray-400);
+    margin-bottom: var(--space-lg);
+    line-height: 1.5;
+}
+
+.project-skills {
+    display: flex;
+    gap: var(--space-xs);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.skill-tag {
+    background: var(--primary-gradient);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.resources-section {
+    padding: var(--space-3xl) 0;
+    background: var(--gray-100);
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+}
+
+.resource-category {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+}
+
+.resource-category:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.category-header i {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.category-header h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark-900);
+}
+
+.resource-links {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.resource-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-100);
+    border-radius: var(--radius-md);
+    color: var(--dark-900);
+    text-decoration: none;
+    transition: var(--transition-normal);
+    font-weight: 500;
+}
+
+.resource-link:hover {
+    background: var(--primary-gradient);
+    color: white;
+    transform: translateX(5px);
+}
+
+.resource-link i {
+    color: var(--primary-color);
+    width: 20px;
+    text-align: center;
+}
+
+.resource-link:hover i {
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-tabs {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .nav-tab {
+        justify-content: center;
+    }
+    
+    .learning-stats {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
+    }
+    
+    .roadmap-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .example-tabs {
+        flex-direction: column;
+    }
+    
+    .channels-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .channel-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .code-block {
+        font-size: 0.8rem;
+    }
+    
+    .tech-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    
+    .tech-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .learning-nav {
+        top: 70px;
+    }
+    
+    .nav-tabs {
+        padding: 0 var(--space-sm);
+    }
+    
+    .tech-header,
+    .learning-roadmap,
+    .code-examples,
+    .youtube-channels,
+    .practice-projects {
+        padding: var(--space-lg);
+    }
+    
+    .roadmap-step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .code-header {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+    }
+}
+</style>
+
+<script>
+// Learning page functionality
+class LearnPageManager {
+    constructor() {
+        this.currentTab = 'mongodb';
+        this.init();
+    }
+
+    init() {
+        this.setupTabNavigation();
+        this.setupCodeExamples();
+        this.setupCopyButtons();
+        this.initializeSyntaxHighlighting();
+    }
+
+    setupTabNavigation() {
+        const tabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.tech-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.target;
+                this.switchTab(target);
+            });
+        });
+    }
+
+    switchTab(target) {
+        // Update active tab
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelector(`[data-target="${target}"]`).classList.add('active');
+
+        // Update active section
+        document.querySelectorAll('.tech-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(target).classList.add('active');
+
+        this.currentTab = target;
+
+        // Reinitialize code examples for the new tab
+        this.setupCodeExamples();
+    }
+
+    setupCodeExamples() {
+        const currentSection = document.getElementById(this.currentTab);
+        if (!currentSection) return;
+
+        const exampleTabs = currentSection.querySelectorAll('.example-tab');
+        const exampleContents = currentSection.querySelectorAll('.example-content');
+
+        exampleTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.example;
+
+                // Update active example tab
+                exampleTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Update active example content
+                exampleContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                const targetContent = document.getElementById(target);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+    }
+
+    setupCopyButtons() {
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const codeId = btn.onclick.toString().match(/copyCode$$'(.+?)'$$/)?.[1];
+                if (codeId) {
+                    this.copyCode(codeId);
+                }
+            });
+        });
+    }
+
+    copyCode(codeId) {
+        const codeElement = document.getElementById(codeId);
+        if (!codeElement) return;
+
+        const code = codeElement.textContent;
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(code).then(() => {
+                this.showCopySuccess();
+            }).catch(() => {
+                this.fallbackCopyToClipboard(code);
+            });
+        } else {
+            this.fallbackCopyToClipboard(code);
+        }
+    }
+
+    fallbackCopyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            this.showCopySuccess();
+        } catch (err) {
+            console.error('Failed to copy code:', err);
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    showCopySuccess() {
+        // Create and show success notification
+        const notification = document.createElement('div');
+        notification.className = 'copy-notification';
+        notification.innerHTML = `
+            <i class="fas fa-check"></i>
+            <span>Code copied to clipboard!</span>
+        `;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success-gradient);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+
+        document.body.appendChild(notification);
+
+        // Animate in
+        requestAnimationFrame(() => {
+            notification.style.transform = 'translateX(0)';
+        });
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    initializeSyntaxHighlighting() {
+        // Basic syntax highlighting for code blocks
+        document.querySelectorAll('code').forEach(block => {
+            this.highlightSyntax(block);
+        });
+    }
+
+    highlightSyntax(codeBlock) {
+        let html = codeBlock.innerHTML;
+
+        // JavaScript/Node.js keywords
+        const keywords = [
+            'const', 'let', 'var', 'function', 'async', 'await', 'return', 'if', 'else', 
+            'for', 'while', 'try', 'catch', 'throw', 'new', 'class', 'extends', 'import', 
+            'export', 'require', 'module', 'exports', 'true', 'false', 'null', 'undefined'
+        ];
+
+        // Highlight keywords
+        keywords.forEach(keyword => {
+            const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+            html = html.replace(regex, `<span style="color: #ff79c6;">${keyword}</span>`);
+        });
+
+        // Highlight strings
+        html = html.replace(/(["'`])((?:\\.|(?!\1)[^\\])*?)\1/g, 
+            '<span style="color: #f1fa8c;">$1$2$1</span>');
+
+        // Highlight comments
+        html = html.replace(/(\/\/.*$)/gm, '<span style="color: #6272a4;">$1</span>');
+        html = html.replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: #6272a4;">$1</span>');
+
+        // Highlight numbers
+        html = html.replace(/\b(\d+)\b/g, '<span style="color: #bd93f9;">$1</span>');
+
+        codeBlock.innerHTML = html;
+    }
+}
+
+// Global copy function for backward compatibility
+function copyCode(codeId) {
+    if (window.learnPageManager) {
+        window.learnPageManager.copyCode(codeId);
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.learnPageManager = new LearnPageManager();
+});
+</script>
+
+<%- include('partials/footer') %>

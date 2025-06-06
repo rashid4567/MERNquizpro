@@ -1,0 +1,151 @@
+<%- include('partials/header', {title: `Question ${currentQuestion} - MERN Quiz Pro`}) %>
+
+<div class="quiz-container">
+    <div class="quiz-header" data-aos="fade-down" data-aos-duration="800">
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: <%= progress %>%"></div>
+            </div>
+            <div class="progress-text">
+                <span>Question <%= currentQuestion %> of <%= totalQuestions %></span>
+                <span><%= progress %>% Complete</span>
+            </div>
+        </div>
+        
+        <div class="category-badge <%= question.category.toLowerCase() %>" data-aos="zoom-in" data-aos-delay="200">
+            <i class="fas fa-tag"></i>
+            <%= question.category %>
+        </div>
+    </div>
+
+    <div class="question-card" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+        <h2 class="question-text">
+            <span class="question-number">Q<%= currentQuestion %>.</span>
+            <%= question.question %>
+        </h2>
+
+        <form action="/quiz/answer" method="POST" class="answer-form" id="quizForm">
+            <div class="options-container">
+                <% question.options.forEach((option, index) => { %>
+                    <label class="option-card" for="option<%= index %>" data-aos="fade-left" data-aos-delay="<%= 500 + (index * 100) %>">
+                        <input 
+                            type="radio" 
+                            name="answer" 
+                            value="<%= index %>" 
+                            id="option<%= index %>"
+                            required
+                        >
+                        <div class="option-content">
+                            <div class="option-letter"><%= String.fromCharCode(65 + index) %></div>
+                            <div class="option-text"><%= option %></div>
+                            <div class="option-check">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                    </label>
+                <% }); %>
+            </div>
+
+            <div class="form-actions" data-aos="fade-up" data-aos-delay="900">
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                    <% if (currentQuestion === totalQuestions) { %>
+                        <i class="fas fa-flag-checkered"></i>
+                        <span>Finish Quiz</span>
+                    <% } else { %>
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Next Question</span>
+                    <% } %>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="quiz-navigation" data-aos="fade-up" data-aos-delay="1000">
+        <div class="nav-info">
+            <i class="fas fa-lightbulb"></i>
+            <span>Select an answer to continue</span>
+        </div>
+        <div class="quiz-actions">
+            <a href="/" class="action-link">
+                <i class="fas fa-home"></i>
+                <span>Exit Quiz</span>
+            </a>
+            <a href="/quiz/restart" class="action-link">
+                <i class="fas fa-redo"></i>
+                <span>Restart</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Help Tooltip -->
+<div class="help-tooltip" data-aos="fade-in" data-aos-delay="1200">
+    <div class="tooltip-content">
+        <h4><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h4>
+        <ul>
+            <li><kbd>1-4</kbd> Select options</li>
+            <li><kbd>↑↓</kbd> Navigate options</li>
+            <li><kbd>Enter</kbd> Submit answer</li>
+            <li><kbd>Esc</kbd> Exit quiz</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+.help-tooltip {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 250px;
+    z-index: 1000;
+}
+
+.tooltip-content h4 {
+    color: var(--dark-900);
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tooltip-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tooltip-content li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--gray-400);
+}
+
+.tooltip-content kbd {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .help-tooltip {
+        display: none;
+    }
+}
+</style>
+
+<%- include('partials/footer') %>

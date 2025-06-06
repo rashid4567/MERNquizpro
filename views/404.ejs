@@ -1,0 +1,27 @@
+<%- include('partials/header', {title: '404 - Page Not Found'}) %>
+
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h1 class="error-title">404</h1>
+        <h2 class="error-subtitle">Page Not Found</h2>
+        <p class="error-message">
+            Oops! The page you're looking for doesn't exist. 
+            It might have been moved, deleted, or you entered the wrong URL.
+        </p>
+        <div class="error-actions">
+            <a href="/" class="btn-primary">
+                <i class="fas fa-home"></i>
+                Go Home
+            </a>
+            <a href="/quiz" class="btn-secondary">
+                <i class="fas fa-play"></i>
+                Take Quiz
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
