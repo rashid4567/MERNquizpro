@@ -1,0 +1,1837 @@
+<%- include('partials/header', {title: 'Advanced Typing Tester - MERN Quiz Pro'}) %>
+
+<!-- Typing Test Container -->
+<section class="typing-test-section">
+    <div class="typing-container">
+        <!-- Header -->
+        <div class="typing-header" data-aos="fade-down">
+            <div class="level-info">
+                <div class="level-badge">
+                    <i class="fas fa-trophy"></i>
+                    <span>Level <span id="currentLevel">1</span></span>
+                </div>
+                <div class="target-wpm">
+                    <i class="fas fa-target"></i>
+                    <span>Target: <span id="targetWPM">20</span> WPM</span>
+                </div>
+            </div>
+            
+            <div class="progress-section">
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="levelProgress"></div>
+                        <div class="progress-shine"></div>
+                    </div>
+                    <span class="progress-text">Level Progress: <span id="progressPercent">0</span>%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div class="stats-dashboard" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-card">
+                <div class="stat-icon wpm-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="currentWPM">0</div>
+                    <div class="stat-label">WPM</div>
+                </div>
+                <div class="stat-trend" id="wpmTrend">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon accuracy-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="accuracy">100</div>
+                    <div class="stat-label">Accuracy %</div>
+                </div>
+                <div class="stat-trend" id="accuracyTrend">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon time-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="timeLeft">60</div>
+                    <div class="stat-label">Time Left</div>
+                </div>
+                <div class="stat-trend">
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon streak-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-value" id="streak">0</div>
+                    <div class="stat-label">Streak</div>
+                </div>
+                <div class="stat-trend" id="streakTrend">
+                    <i class="fas fa-fire"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typing Area -->
+        <div class="typing-area" data-aos="zoom-in" data-aos-delay="400">
+            <div class="text-display" id="textDisplay">
+                <div class="text-content" id="textContent">
+                    Click "Start Test" to begin your typing challenge!
+                </div>
+                <div class="cursor-indicator" id="cursor"></div>
+            </div>
+            
+            <div class="input-section">
+                <textarea 
+                    id="typingInput" 
+                    placeholder="Start typing here..."
+                    disabled
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                ></textarea>
+                <div class="input-effects">
+                    <div class="typing-particles"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-section" data-aos="fade-up" data-aos-delay="600">
+            <button class="control-btn start-btn" id="startBtn">
+                <i class="fas fa-play"></i>
+                <span>Start Test</span>
+                <div class="btn-ripple"></div>
+            </button>
+            
+            <button class="control-btn reset-btn" id="resetBtn">
+                <i class="fas fa-redo"></i>
+                <span>Reset</span>
+                <div class="btn-ripple"></div>
+            </button>
+            
+            <button class="control-btn settings-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+                <div class="btn-ripple"></div>
+            </button>
+        </div>
+
+        <!-- Level Completion Modal -->
+        <div class="modal-overlay" id="levelCompleteModal">
+            <div class="modal-content level-complete">
+                <div class="modal-header">
+                    <div class="success-icon">
+                        <i class="fas fa-trophy"></i>
+                        <div class="success-particles"></div>
+                    </div>
+                    <h2>Level Complete!</h2>
+                    <p>Congratulations! You've mastered this level.</p>
+                </div>
+                
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <span class="stat-label">Your WPM</span>
+                        <span class="stat-value" id="modalWPM">0</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Required WPM</span>
+                        <span class="stat-value" id="modalRequiredWPM">0</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value" id="modalAccuracy">0%</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Next Level</span>
+                        <span class="stat-value" id="modalNextLevel">2</span>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="modal-btn next-level-btn" id="nextLevelBtn">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Next Level</span>
+                    </button>
+                    <button class="modal-btn retry-btn" id="retryBtn">
+                        <i class="fas fa-redo"></i>
+                        <span>Retry Level</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Failure Modal -->
+        <div class="modal-overlay" id="levelFailModal">
+            <div class="modal-content level-fail">
+                <div class="modal-header">
+                    <div class="fail-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2>Level Failed</h2>
+                    <p>Don't give up! Practice makes perfect.</p>
+                </div>
+                
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <span class="stat-label">Your WPM</span>
+                        <span class="stat-value" id="failModalWPM">0</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Required WPM</span>
+                        <span class="stat-value" id="failModalRequiredWPM">0</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value" id="failModalAccuracy">0%</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-label">Difference</span>
+                        <span class="stat-value difference" id="modalDifference">-5 WPM</span>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="modal-btn retry-btn" id="retryFailBtn">
+                        <i class="fas fa-redo"></i>
+                        <span>Try Again</span>
+                    </button>
+                    <button class="modal-btn practice-btn" id="practiceBtn">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>Practice Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settingsModal">
+            <div class="modal-content settings">
+                <div class="modal-header">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                    <button class="close-btn" id="closeSettings">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label>Test Duration</label>
+                        <select id="testDuration">
+                            <option value="30">30 seconds</option>
+                            <option value="60" selected>60 seconds</option>
+                            <option value="120">2 minutes</option>
+                            <option value="300">5 minutes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>Text Difficulty</label>
+                        <select id="textDifficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>Sound Effects</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="soundEffects" checked>
+                            <label for="soundEffects" class="toggle-label"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <label>Show Live WPM</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="liveWPM" checked>
+                            <label for="liveWPM" class="toggle-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Selection -->
+        <div class="level-selector" data-aos="fade-up" data-aos-delay="800">
+            <h3><i class="fas fa-layer-group"></i> Level Selection</h3>
+            <div class="level-grid" id="levelGrid">
+                <!-- Levels will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Typing Test Styles -->
+<style>
+.typing-test-section {
+    min-height: 100vh;
+    padding: 120px 0 60px;
+    position: relative;
+}
+
+.typing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.typing-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.level-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.level-badge, .target-wpm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--primary-gradient);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.target-wpm {
+    background: var(--success-gradient);
+}
+
+.progress-section {
+    position: relative;
+}
+
+.level-progress .progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 50px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.progress-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.progress-text {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Stats Dashboard */
+.stats-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-gradient);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    position: relative;
+}
+
+.wpm-icon { background: var(--primary-gradient); }
+.accuracy-icon { background: var(--success-gradient); }
+.time-icon { background: var(--warning-gradient); }
+.streak-icon { background: var(--danger-gradient); }
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-trend {
+    color: #10b981;
+    font-size: 18px;
+}
+
+/* Typing Area */
+.typing-area {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.text-display {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    line-height: 1.8;
+    position: relative;
+    border: 2px solid #e5e7eb;
+    min-height: 150px;
+}
+
+.text-content {
+    position: relative;
+    z-index: 2;
+}
+
+.text-content .char {
+    position: relative;
+    transition: all 0.1s ease;
+}
+
+.text-content .char.correct {
+    background: rgba(34, 197, 94, 0.2);
+    color: #059669;
+}
+
+.text-content .char.incorrect {
+    background: rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+}
+
+.text-content .char.current {
+    background: var(--primary-color);
+    color: white;
+    animation: currentChar 1s infinite;
+}
+
+@keyframes currentChar {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+}
+
+.cursor-indicator {
+    position: absolute;
+    width: 2px;
+    height: 24px;
+    background: var(--primary-color);
+    animation: blink 1s infinite;
+    z-index: 3;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.input-section {
+    position: relative;
+}
+
+#typingInput {
+    width: 100%;
+    height: 120px;
+    padding: 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+#typingInput:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+#typingInput:disabled {
+    background: #f3f4f6;
+    cursor: not-allowed;
+}
+
+.input-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.typing-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* Controls */
+.controls-section {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.start-btn {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.reset-btn {
+    background: var(--warning-gradient);
+    color: white;
+    box-shadow: 0 8px 25px rgba(67, 233, 123, 0.3);
+}
+
+.settings-btn {
+    background: var(--secondary-gradient);
+    color: white;
+    box-shadow: 0 8px 25px rgba(118, 75, 162, 0.3);
+}
+
+.control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.btn-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.control-btn:active .btn-ripple {
+    width: 200px;
+    height: 200px;
+}
+
+/* Level Selection */
+.level-selector {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.level-selector h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.level-item {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.level-item.locked {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.level-item.unlocked {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.level-item.completed {
+    background: var(--success-gradient);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.level-item.current {
+    border-color: #fbbf24;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+    animation: currentLevel 2s infinite;
+}
+
+@keyframes currentLevel {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.level-item:hover:not(.locked) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    margin-bottom: 30px;
+}
+
+.success-icon, .fail-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.success-icon {
+    background: var(--success-gradient);
+    color: white;
+    animation: successPulse 2s infinite;
+}
+
+.fail-icon {
+    background: var(--danger-gradient);
+    color: white;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes successPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.success-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.modal-header h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #1f2937;
+}
+
+.modal-header p {
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.modal-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.modal-stat {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+}
+
+.modal-stat .stat-label {
+    display: block;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.modal-stat .stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1f2937;
+}
+
+.modal-stat .stat-value.difference {
+    color: #dc2626;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.next-level-btn {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.retry-btn {
+    background: var(--warning-gradient);
+    color: white;
+}
+
+.practice-btn {
+    background: var(--secondary-gradient);
+    color: white;
+}
+
+.modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Settings Modal */
+.settings .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #1f2937;
+}
+
+.settings-content {
+    display: grid;
+    gap: 25px;
+}
+
+.setting-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-group label {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.setting-group select {
+    padding: 8px 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    background: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.toggle-switch {
+    position: relative;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    background: #e5e7eb;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch input:checked + .toggle-label {
+    background: var(--primary-color);
+}
+
+.toggle-switch input:checked + .toggle-label::after {
+    transform: translateX(26px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .typing-container {
+        padding: 0 15px;
+    }
+    
+    .typing-header,
+    .typing-area,
+    .level-selector {
+        padding: 20px;
+    }
+    
+    .stats-dashboard {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-value {
+        font-size: 24px;
+    }
+    
+    .text-display {
+        padding: 20px;
+        font-size: 16px;
+    }
+    
+    #typingInput {
+        height: 100px;
+        font-size: 14px;
+    }
+    
+    .controls-section {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .level-grid {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    }
+    
+    .level-item {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .modal-content {
+        padding: 30px 20px;
+    }
+    
+    .modal-stats {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .level-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .stats-dashboard {
+        grid-template-columns: 1fr;
+    }
+    
+    .text-display {
+        font-size: 14px;
+        min-height: 120px;
+    }
+    
+    .level-grid {
+        grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    }
+    
+    .level-item {
+        width: 45px;
+        height: 45px;
+        font-size: 12px;
+    }
+}
+</style>
+
+<!-- Typing Test JavaScript -->
+<script>
+class AdvancedTypingTest {
+    constructor() {
+        this.currentLevel = 1;
+        this.maxLevel = 100;
+        this.testDuration = 60;
+        this.isTestActive = false;
+        this.startTime = null;
+        this.endTime = null;
+        this.currentText = '';
+        this.typedText = '';
+        this.currentIndex = 0;
+        this.errors = 0;
+        this.wpm = 0;
+        this.accuracy = 100;
+        this.streak = 0;
+        this.timeLeft = 60;
+        this.timer = null;
+        this.wpmTimer = null;
+        
+        // Level requirements (WPM needed to pass each level)
+        this.levelRequirements = this.generateLevelRequirements();
+        
+        // Text samples for different difficulties
+        this.textSamples = {
+            easy: [
+                "The quick brown fox jumps over the lazy dog. This is a simple sentence to practice typing.",
+                "Programming is fun and challenging. It requires patience and practice to master.",
+                "JavaScript is a powerful language used for web development and many other applications.",
+                "Learning to type fast is essential for programmers and writers in the modern world."
+            ],
+            medium: [
+                "Advanced programming concepts include algorithms, data structures, and design patterns that help developers create efficient solutions.",
+                "The implementation of complex features requires careful planning, thorough testing, and continuous refactoring to maintain code quality.",
+                "Modern web development involves multiple technologies working together: HTML for structure, CSS for styling, and JavaScript for interactivity.",
+                "Database optimization techniques include indexing, query optimization, normalization, and proper schema design for better performance."
+            ],
+            hard: [
+                "Asynchronous programming paradigms enable developers to write non-blocking code that can handle multiple operations simultaneously without freezing the user interface.",
+                "Machine learning algorithms process vast amounts of data to identify patterns, make predictions, and automate decision-making processes across various industries.",
+                "Microservices architecture decomposes monolithic applications into smaller, independent services that communicate through well-defined APIs and protocols.",
+                "Cybersecurity measures include encryption, authentication, authorization, input validation, and regular security audits to protect against various threats."
+            ],
+            expert: [
+                "Quantum computing leverages quantum mechanical phenomena such as superposition and entanglement to perform calculations exponentially faster than classical computers for specific problem domains.",
+                "Distributed systems architecture requires careful consideration of consistency, availability, partition tolerance, load balancing, fault tolerance, and eventual consistency patterns.",
+                "Advanced cryptographic protocols implement zero-knowledge proofs, homomorphic encryption, and multi-party computation to enable secure computation on encrypted data.",
+                "Compiler optimization techniques include dead code elimination, loop unrolling, instruction scheduling, register allocation, and various static analysis methods."
+            ]
+        };
+        
+        this.init();
+    }
+    
+    init() {
+        this.loadProgress();
+        this.setupEventListeners();
+        this.generateLevelGrid();
+        this.updateUI();
+        this.generateText();
+    }
+    
+    generateLevelRequirements() {
+        const requirements = [];
+        for (let i = 1; i <= 100; i++) {
+            // Progressive difficulty: starts at 20 WPM, increases by 2 every 5 levels
+            const baseWPM = 20;
+            const increment = Math.floor((i - 1) / 5) * 2;
+            requirements.push(baseWPM + increment);
+        }
+        return requirements;
+    }
+    
+    setupEventListeners() {
+        // Control buttons
+        document.getElementById('startBtn').addEventListener('click', () => this.startTest());
+        document.getElementById('resetBtn').addEventListener('click', () => this.resetTest());
+        document.getElementById('settingsBtn').addEventListener('click', () => this.showSettings());
+        
+        // Typing input
+        document.getElementById('typingInput').addEventListener('input', (e) => this.handleTyping(e));
+        document.getElementById('typingInput').addEventListener('keydown', (e) => this.handleKeyDown(e));
+        
+        // Modal buttons
+        document.getElementById('nextLevelBtn').addEventListener('click', () => this.nextLevel());
+        document.getElementById('retryBtn').addEventListener('click', () => this.retryLevel());
+        document.getElementById('retryFailBtn').addEventListener('click', () => this.retryLevel());
+        document.getElementById('practiceBtn').addEventListener('click', () => this.practiceMode());
+        document.getElementById('closeSettings').addEventListener('click', () => this.hideSettings());
+        
+        // Settings
+        document.getElementById('testDuration').addEventListener('change', (e) => {
+            this.testDuration = parseInt(e.target.value);
+            this.timeLeft = this.testDuration;
+            this.updateUI();
+        });
+        
+        // Level selection
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('level-item') && !e.target.classList.contains('locked')) {
+                const level = parseInt(e.target.dataset.level);
+                this.selectLevel(level);
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case 'Enter':
+                        e.preventDefault();
+                        if (!this.isTestActive) this.startTest();
+                        break;
+                    case 'r':
+                        e.preventDefault();
+                        this.resetTest();
+                        break;
+                }
+            }
+        });
+    }
+    
+    generateText() {
+        const difficulty = document.getElementById('textDifficulty')?.value || 'medium';
+        const samples = this.textSamples[difficulty];
+        this.currentText = samples[Math.floor(Math.random() * samples.length)];
+        this.displayText();
+    }
+    
+    displayText() {
+        const textContent = document.getElementById('textContent');
+        textContent.innerHTML = '';
+        
+        for (let i = 0; i < this.currentText.length; i++) {
+            const span = document.createElement('span');
+            span.className = 'char';
+            span.textContent = this.currentText[i];
+            textContent.appendChild(span);
+        }
+        
+        this.updateTextDisplay();
+    }
+    
+    updateTextDisplay() {
+        const chars = document.querySelectorAll('.char');
+        
+        chars.forEach((char, index) => {
+            char.className = 'char';
+            
+            if (index < this.currentIndex) {
+                if (this.typedText[index] === this.currentText[index]) {
+                    char.classList.add('correct');
+                } else {
+                    char.classList.add('incorrect');
+                }
+            } else if (index === this.currentIndex) {
+                char.classList.add('current');
+            }
+        });
+        
+        // Update cursor position
+        this.updateCursor();
+    }
+    
+    updateCursor() {
+        const cursor = document.getElementById('cursor');
+        const chars = document.querySelectorAll('.char');
+        
+        if (chars[this.currentIndex]) {
+            const rect = chars[this.currentIndex].getBoundingClientRect();
+            const containerRect = document.getElementById('textContent').getBoundingClientRect();
+            
+            cursor.style.left = (rect.left - containerRect.left) + 'px';
+            cursor.style.top = (rect.top - containerRect.top) + 'px';
+        }
+    }
+    
+    startTest() {
+        if (this.isTestActive) return;
+        
+        this.isTestActive = true;
+        this.startTime = Date.now();
+        this.timeLeft = this.testDuration;
+        this.currentIndex = 0;
+        this.typedText = '';
+        this.errors = 0;
+        this.wpm = 0;
+        this.accuracy = 100;
+        
+        // Enable input and focus
+        const input = document.getElementById('typingInput');
+        input.disabled = false;
+        input.value = '';
+        input.focus();
+        
+        // Update UI
+        document.getElementById('startBtn').disabled = true;
+        document.getElementById('startBtn').innerHTML = '<i class="fas fa-clock"></i><span>Test Active</span>';
+        
+        // Start timers
+        this.startTimer();
+        this.startWPMCalculation();
+        
+        // Generate new text
+        this.generateText();
+        
+        this.showNotification('Test started! Type the text above.', 'info');
+    }
+    
+    resetTest() {
+        this.isTestActive = false;
+        this.clearTimers();
+        
+        // Reset values
+        this.currentIndex = 0;
+        this.typedText = '';
+        this.errors = 0;
+        this.wpm = 0;
+        this.accuracy = 100;
+        this.timeLeft = this.testDuration;
+        
+        // Reset UI
+        const input = document.getElementById('typingInput');
+        input.disabled = true;
+        input.value = '';
+        
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('startBtn').innerHTML = '<i class="fas fa-play"></i><span>Start Test</span>';
+        
+        // Update display
+        this.updateUI();
+        this.displayText();
+        
+        this.showNotification('Test reset. Ready to start again!', 'info');
+    }
+    
+    startTimer() {
+        this.timer = setInterval(() => {
+            this.timeLeft--;
+            this.updateUI();
+            
+            if (this.timeLeft <= 0) {
+                this.endTest();
+            }
+        }, 1000);
+    }
+    
+    startWPMCalculation() {
+        this.wpmTimer = setInterval(() => {
+            if (this.isTestActive) {
+                this.calculateWPM();
+                this.updateUI();
+            }
+        }, 1000);
+    }
+    
+    clearTimers() {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        if (this.wpmTimer) {
+            clearInterval(this.wpmTimer);
+            this.wpmTimer = null;
+        }
+    }
+    
+    handleTyping(e) {
+        if (!this.isTestActive) return;
+        
+        const input = e.target;
+        this.typedText = input.value;
+        
+        // Check if text is completed
+        if (this.typedText.length >= this.currentText.length) {
+            this.endTest();
+            return;
+        }
+        
+        // Update current index
+        this.currentIndex = this.typedText.length;
+        
+        // Calculate errors
+        this.calculateErrors();
+        
+        // Update display
+        this.updateTextDisplay();
+        this.calculateWPM();
+        this.updateUI();
+        
+        // Create typing particles
+        this.createTypingParticles();
+    }
+    
+    handleKeyDown(e) {
+        if (!this.isTestActive) return;
+        
+        // Prevent certain keys
+        if (e.key === 'Tab' || e.key === 'Escape') {
+            e.preventDefault();
+        }
+    }
+    
+    calculateErrors() {
+        this.errors = 0;
+        for (let i = 0; i < this.typedText.length; i++) {
+            if (this.typedText[i] !== this.currentText[i]) {
+                this.errors++;
+            }
+        }
+        
+        // Calculate accuracy
+        if (this.typedText.length > 0) {
+            this.accuracy = Math.round(((this.typedText.length - this.errors) / this.typedText.length) * 100);
+        } else {
+            this.accuracy = 100;
+        }
+    }
+    
+    calculateWPM() {
+        if (!this.startTime) return;
+        
+        const timeElapsed = (Date.now() - this.startTime) / 1000 / 60; // in minutes
+        const wordsTyped = this.typedText.length / 5; // standard: 5 characters = 1 word
+        
+        if (timeElapsed > 0) {
+            this.wpm = Math.round(wordsTyped / timeElapsed);
+        }
+    }
+    
+    endTest() {
+        this.isTestActive = false;
+        this.endTime = Date.now();
+        this.clearTimers();
+        
+        // Disable input
+        document.getElementById('typingInput').disabled = true;
+        
+        // Final calculations
+        this.calculateWPM();
+        this.calculateErrors();
+        
+        // Check if level passed
+        const requiredWPM = this.levelRequirements[this.currentLevel - 1];
+        const passed = this.wpm >= requiredWPM && this.accuracy >= 85;
+        
+        if (passed) {
+            this.levelPassed();
+        } else {
+            this.levelFailed();
+        }
+        
+        // Reset start button
+        document.getElementById('startBtn').disabled = false;
+        document.getElementById('startBtn').innerHTML = '<i class="fas fa-play"></i><span>Start Test</span>';
+    }
+    
+    levelPassed() {
+        // Update progress
+        const progress = JSON.parse(localStorage.getItem('typingProgress') || '{}');
+        progress[this.currentLevel] = {
+            passed: true,
+            wpm: this.wpm,
+            accuracy: this.accuracy,
+            date: new Date().toISOString()
+        };
+        localStorage.setItem('typingProgress', JSON.stringify(progress));
+        
+        // Update streak
+        this.streak++;
+        
+        // Show success modal
+        this.showLevelCompleteModal();
+        
+        // Create celebration effects
+        this.createCelebrationEffects();
+        
+        this.showNotification(`Level ${this.currentLevel} completed! 🎉`, 'success');
+    }
+    
+    levelFailed() {
+        // Reset streak
+        this.streak = 0;
+        
+        // Show failure modal
+        this.showLevelFailModal();
+        
+        this.showNotification(`Level ${this.currentLevel} failed. Try again! 💪`, 'error');
+    }
+    
+    showLevelCompleteModal() {
+        const modal = document.getElementById('levelCompleteModal');
+        const requiredWPM = this.levelRequirements[this.currentLevel - 1];
+        
+        document.getElementById('modalWPM').textContent = this.wpm;
+        document.getElementById('modalRequiredWPM').textContent = requiredWPM;
+        document.getElementById('modalAccuracy').textContent = this.accuracy + '%';
+        document.getElementById('modalNextLevel').textContent = this.currentLevel + 1;
+        
+        modal.classList.add('active');
+    }
+    
+    showLevelFailModal() {
+        const modal = document.getElementById('levelFailModal');
+        const requiredWPM = this.levelRequirements[this.currentLevel - 1];
+        const difference = this.wpm - requiredWPM;
+        
+        document.getElementById('failModalWPM').textContent = this.wpm;
+        document.getElementById('failModalRequiredWPM').textContent = requiredWPM;
+        document.getElementById('failModalAccuracy').textContent = this.accuracy + '%';
+        document.getElementById('modalDifference').textContent = (difference >= 0 ? '+' : '') + difference + ' WPM';
+        
+        modal.classList.add('active');
+    }
+    
+    hideModals() {
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.classList.remove('active');
+        });
+    }
+    
+    nextLevel() {
+        this.hideModals();
+        if (this.currentLevel < this.maxLevel) {
+            this.currentLevel++;
+            this.updateUI();
+            this.generateLevelGrid();
+            this.resetTest();
+        }
+    }
+    
+    retryLevel() {
+        this.hideModals();
+        this.resetTest();
+    }
+    
+    practiceMode() {
+        this.hideModals();
+        // Implement practice mode logic
+        this.showNotification('Practice mode activated!', 'info');
+        this.resetTest();
+    }
+    
+    selectLevel(level) {
+        const progress = JSON.parse(localStorage.getItem('typingProgress') || '{}');
+        
+        // Check if level is unlocked
+        if (level > 1) {
+            const previousLevel = level - 1;
+            if (!progress[previousLevel] || !progress[previousLevel].passed) {
+                this.showNotification('Complete previous levels to unlock this level!', 'warning');
+                return;
+            }
+        }
+        
+        this.currentLevel = level;
+        this.updateUI();
+        this.generateLevelGrid();
+        this.resetTest();
+        
+        this.showNotification(`Level ${level} selected!`, 'info');
+    }
+    
+    generateLevelGrid() {
+        const grid = document.getElementById('levelGrid');
+        grid.innerHTML = '';
+        
+        const progress = JSON.parse(localStorage.getItem('typingProgress') || '{}');
+        
+        for (let i = 1; i <= this.maxLevel; i++) {
+            const levelItem = document.createElement('div');
+            levelItem.className = 'level-item';
+            levelItem.dataset.level = i;
+            levelItem.textContent = i;
+            
+            // Determine level status
+            if (i === 1 || (progress[i - 1] && progress[i - 1].passed)) {
+                if (progress[i] && progress[i].passed) {
+                    levelItem.classList.add('completed');
+                } else {
+                    levelItem.classList.add('unlocked');
+                }
+            } else {
+                levelItem.classList.add('locked');
+            }
+            
+            if (i === this.currentLevel) {
+                levelItem.classList.add('current');
+            }
+            
+            grid.appendChild(levelItem);
+        }
+    }
+    
+    showSettings() {
+        document.getElementById('settingsModal').classList.add('active');
+    }
+    
+    hideSettings() {
+        document.getElementById('settingsModal').classList.remove('active');
+    }
+    
+    updateUI() {
+        // Update level info
+        document.getElementById('currentLevel').textContent = this.currentLevel;
+        document.getElementById('targetWPM').textContent = this.levelRequirements[this.currentLevel - 1];
+        
+        // Update stats
+        document.getElementById('currentWPM').textContent = this.wpm;
+        document.getElementById('accuracy').textContent = this.accuracy;
+        document.getElementById('timeLeft').textContent = this.timeLeft;
+        document.getElementById('streak').textContent = this.streak;
+        
+        // Update progress
+        const progress = Math.min((this.currentLevel / this.maxLevel) * 100, 100);
+        document.getElementById('levelProgress').style.width = progress + '%';
+        document.getElementById('progressPercent').textContent = Math.round(progress);
+        
+        // Update trends
+        this.updateTrends();
+    }
+    
+    updateTrends() {
+        const wpmTrend = document.getElementById('wpmTrend');
+        const accuracyTrend = document.getElementById('accuracyTrend');
+        const streakTrend = document.getElementById('streakTrend');
+        
+        // Simple trend indicators (can be enhanced with historical data)
+        wpmTrend.innerHTML = this.wpm > 0 ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-minus"></i>';
+        accuracyTrend.innerHTML = this.accuracy >= 90 ? '<i class="fas fa-arrow-up"></i>' : '<i class="fas fa-arrow-down"></i>';
+        streakTrend.innerHTML = this.streak > 0 ? '<i class="fas fa-fire"></i>' : '<i class="fas fa-minus"></i>';
+    }
+    
+    createTypingParticles() {
+        const container = document.querySelector('.typing-particles');
+        const particle = document.createElement('div');
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: particleFloat 1s ease-out forwards;
+        `;
+        
+        container.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    }
+    
+    createCelebrationEffects() {
+        // Create confetti
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                this.createConfetti();
+            }, i * 50);
+        }
+        
+        // Add success particles to modal
+        const successIcon = document.querySelector('.success-icon');
+        if (successIcon) {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    this.createSuccessParticle(successIcon);
+                }, i * 100);
+            }
+        }
+    }
+    
+    createConfetti() {
+        const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe'];
+        const confetti = document.createElement('div');
+        
+        confetti.style.cssText = `
+            position: fixed;
+            top: -10px;
+            left: ${Math.random() * 100}%;
+            width: ${Math.random() * 8 + 4}px;
+            height: ${Math.random() * 8 + 4}px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            z-index: 10001;
+            pointer-events: none;
+            border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+            animation: confettiFall ${Math.random() * 2 + 3}s linear forwards;
+        `;
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+    
+    createSuccessParticle(container) {
+        const particle = document.createElement('div');
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: successParticle 1s ease-out forwards;
+        `;
+        
+        container.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    }
+    
+    loadProgress() {
+        const progress = JSON.parse(localStorage.getItem('typingProgress') || '{}');
+        
+        // Find highest completed level
+        let highestLevel = 1;
+        for (let i = 1; i <= this.maxLevel; i++) {
+            if (progress[i] && progress[i].passed) {
+                highestLevel = i + 1;
+            } else {
+                break;
+            }
+        }
+        
+        this.currentLevel = Math.min(highestLevel, this.maxLevel);
+    }
+    
+    showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${this.getNotificationIcon(type)}"></i>
+                <span>${message}</span>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        // Style notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${this.getNotificationColor(type)};
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 10002;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        `;
+        
+        // Add close functionality
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            this.removeNotification(notification);
+        });
+        
+        // Add to page
+        document.body.appendChild(notification);
+        
+        // Animate in
+        requestAnimationFrame(() => {
+            notification.style.transform = 'translateX(0)';
+        });
+        
+        // Auto remove
+        setTimeout(() => {
+            this.removeNotification(notification);
+        }, 5000);
+    }
+    
+    removeNotification(notification) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                document.body.removeChild(notification);
+            }
+        }, 300);
+    }
+    
+    getNotificationIcon(type) {
+        const icons = {
+            success: 'check-circle',
+            warning: 'exclamation-triangle',
+            error: 'times-circle',
+            info: 'info-circle'
+        };
+        return icons[type] || icons.info;
+    }
+    
+    getNotificationColor(type) {
+        const colors = {
+            success: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+            warning: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+            error: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+            info: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        };
+        return colors[type] || colors.info;
+    }
+}
+
+// Add required CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes particleFloat {
+        0% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-20px) scale(0);
+        }
+    }
+    
+    @keyframes confettiFall {
+        0% {
+            transform: translateY(-100vh) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes successParticle {
+        0% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) translateY(-30px) scale(0);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Initialize the typing test
+document.addEventListener('DOMContentLoaded', () => {
+    new AdvancedTypingTest();
+});
+</script>
+
+<%- include('partials/footer') %>
