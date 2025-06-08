@@ -1,29 +1,26 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const session = require("express-session")
-const path = require("path")
+const express = require("express");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const path = require("path");
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, "public")))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "mern-quiz-secret-key-2024",
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
-  }),
-)
+  })
+);
 
-// Set EJS as template engine
-app.set("view engine", "ejs")
-app.set("views", path.join(__dirname, "views"))
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// Quiz Questions Database
 const quizQuestions = [
   {
     id: 1,
@@ -45,7 +42,8 @@ const quizQuestions = [
     options: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"],
     correct: 2,
     category: "MongoDB",
-    explanation: "MongoDB is a document-oriented NoSQL database that stores data in flexible, JSON-like documents.",
+    explanation:
+      "MongoDB is a document-oriented NoSQL database that stores data in flexible, JSON-like documents.",
   },
   {
     id: 3,
@@ -59,7 +57,12 @@ const quizQuestions = [
   {
     id: 4,
     question: "What is JSX in React?",
-    options: ["A database query language", "A syntax extension for JavaScript", "A CSS framework", "A Node.js module"],
+    options: [
+      "A database query language",
+      "A syntax extension for JavaScript",
+      "A CSS framework",
+      "A Node.js module",
+    ],
     correct: 1,
     category: "React",
     explanation:
@@ -68,7 +71,12 @@ const quizQuestions = [
   {
     id: 5,
     question: "Which method is used to create a server in Node.js?",
-    options: ["http.createServer()", "server.create()", "node.createServer()", "express.server()"],
+    options: [
+      "http.createServer()",
+      "server.create()",
+      "node.createServer()",
+      "express.server()",
+    ],
     correct: 0,
     category: "Node.js",
     explanation:
@@ -80,7 +88,8 @@ const quizQuestions = [
     options: ["3000", "5000", "27017", "8080"],
     correct: 2,
     category: "MongoDB",
-    explanation: "MongoDB runs on port 27017 by default. This is the standard port for MongoDB database connections.",
+    explanation:
+      "MongoDB runs on port 27017 by default. This is the standard port for MongoDB database connections.",
   },
   {
     id: 7,
@@ -111,12 +120,18 @@ const quizQuestions = [
     options: ["node init", "npm start", "npm init", "node create"],
     correct: 2,
     category: "Node.js",
-    explanation: "The 'npm init' command is used to create a package.json file and initialize a new Node.js project.",
+    explanation:
+      "The 'npm init' command is used to create a package.json file and initialize a new Node.js project.",
   },
   {
     id: 10,
     question: "What does npm stand for?",
-    options: ["Node Package Manager", "New Project Manager", "Node Program Manager", "Network Package Manager"],
+    options: [
+      "Node Package Manager",
+      "New Project Manager",
+      "Node Program Manager",
+      "Network Package Manager",
+    ],
     correct: 0,
     category: "Node.js",
     explanation:
@@ -148,18 +163,31 @@ const quizQuestions = [
   {
     id: 13,
     question: "What is a collection in MongoDB?",
-    options: ["A group of databases", "A group of documents", "A single document", "A database connection"],
+    options: [
+      "A group of databases",
+      "A group of documents",
+      "A single document",
+      "A database connection",
+    ],
     correct: 1,
     category: "MongoDB",
-    explanation: "A collection in MongoDB is a group of documents. It's equivalent to a table in relational databases.",
+    explanation:
+      "A collection in MongoDB is a group of documents. It's equivalent to a table in relational databases.",
   },
   {
     id: 14,
-    question: "Which of the following is NOT a valid React component lifecycle method?",
-    options: ["componentDidMount", "componentWillUnmount", "componentDidUpdate", "componentWillRender"],
+    question:
+      "Which of the following is NOT a valid React component lifecycle method?",
+    options: [
+      "componentDidMount",
+      "componentWillUnmount",
+      "componentDidUpdate",
+      "componentWillRender",
+    ],
     correct: 3,
     category: "React",
-    explanation: "componentWillRender is not a valid React lifecycle method. The correct method is componentDidUpdate.",
+    explanation:
+      "componentWillRender is not a valid React lifecycle method. The correct method is componentDidUpdate.",
   },
   {
     id: 15,
@@ -195,7 +223,8 @@ const quizQuestions = [
     options: ["app.get()", "app.post()", "app.put()", "app.delete()"],
     correct: 0,
     category: "Express",
-    explanation: "app.get() is the Express.js method used to handle HTTP GET requests to specific routes.",
+    explanation:
+      "app.get() is the Express.js method used to handle HTTP GET requests to specific routes.",
   },
   {
     id: 18,
@@ -217,7 +246,8 @@ const quizQuestions = [
     options: ["http", "fs", "path", "url"],
     correct: 1,
     category: "Node.js",
-    explanation: "The 'fs' (file system) module in Node.js provides an API for interacting with the file system.",
+    explanation:
+      "The 'fs' (file system) module in Node.js provides an API for interacting with the file system.",
   },
   {
     id: 20,
@@ -233,9 +263,8 @@ const quizQuestions = [
     explanation:
       "State in React is a way to store and manage data that can change over time within a component, triggering re-renders when updated.",
   },
-]
+];
 
-// Typing Test Text Samples Database - Expanded Version
 const typingTextSamples = {
   easy: [
     "The quick brown fox jumps over the lazy dog. This is a simple sentence to practice typing skills and improve your speed.",
@@ -325,85 +354,107 @@ const typingTextSamples = {
     "Distributed storage systems implement consistent hashing, vector clocks, merkle trees, and eventual consistency models to provide scalable and fault-tolerant data storage across geographically distributed nodes.",
     "Advanced software engineering practices include domain-driven design, event sourcing, CQRS patterns, hexagonal architecture, and clean architecture principles to create maintainable and scalable enterprise applications.",
   ],
-}
+};
 
 // Helper Functions
 function shuffleArray(array) {
-  const shuffled = [...array]
+  const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return shuffled
+  return shuffled;
 }
 
 function getRandomQuestions(questions, count = 10) {
-  const shuffled = shuffleArray(questions)
-  return shuffled.slice(0, count)
+  const shuffled = shuffleArray(questions);
+  return shuffled.slice(0, count);
 }
 
 function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60)
-  const remainingSeconds = seconds % 60
-  return `${minutes}m ${remainingSeconds}s`
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}m ${remainingSeconds}s`;
 }
 
 function getGrade(percentage) {
-  if (percentage >= 90) return { grade: "A+", message: "Outstanding!", color: "success" }
-  if (percentage >= 80) return { grade: "A", message: "Excellent!", color: "success" }
-  if (percentage >= 70) return { grade: "B", message: "Good Job!", color: "info" }
-  if (percentage >= 60) return { grade: "C", message: "Fair", color: "warning" }
-  if (percentage >= 50) return { grade: "D", message: "Needs Improvement", color: "warning" }
-  return { grade: "F", message: "Keep Learning!", color: "danger" }
+  if (percentage >= 90)
+    return { grade: "A+", message: "Outstanding!", color: "success" };
+  if (percentage >= 80)
+    return { grade: "A", message: "Excellent!", color: "success" };
+  if (percentage >= 70)
+    return { grade: "B", message: "Good Job!", color: "info" };
+  if (percentage >= 60)
+    return { grade: "C", message: "Fair", color: "warning" };
+  if (percentage >= 50)
+    return { grade: "D", message: "Needs Improvement", color: "warning" };
+  return { grade: "F", message: "Keep Learning!", color: "danger" };
 }
 
 function getRandomTypingText(difficulty = "medium") {
-  const texts = typingTextSamples[difficulty] || typingTextSamples.medium
-  return texts[Math.floor(Math.random() * texts.length)]
+  const texts = typingTextSamples[difficulty] || typingTextSamples.medium;
+  return texts[Math.floor(Math.random() * texts.length)];
 }
 
 function calculateWPM(charactersTyped, timeInMinutes) {
-  const wordsTyped = charactersTyped / 5 // Standard: 5 characters = 1 word
-  return Math.round(wordsTyped / timeInMinutes)
+  const wordsTyped = charactersTyped / 5;
+  return Math.round(wordsTyped / timeInMinutes);
 }
 
 function calculateAccuracy(correctChars, totalChars) {
-  if (totalChars === 0) return 100
-  return Math.round((correctChars / totalChars) * 100)
+  if (totalChars === 0) return 100;
+  return Math.round((correctChars / totalChars) * 100);
 }
 
-// Routes
+function getRequiredWPM(level) {
+  if (level <= 10) {
+    return 30 + Math.floor(level / 2);
+  } else if (level <= 25) {
+    return 40 + Math.floor((level - 10) / 3);
+  } else if (level <= 50) {
+    return 55 + Math.floor((level - 25) / 2);
+  } else if (level <= 75) {
+    return 80 + Math.floor((level - 50) / 2);
+  } else {
+    return 105 + Math.floor((level - 75) / 2);
+  }
+}
+
 app.get("/", (req, res) => {
   res.render("index", {
     title: "MERN Stack Quiz Pro - Home",
-  })
-})
+  });
+});
 
 app.get("/learn", (req, res) => {
   res.render("learn", {
     title: "Learn MERN Stack - Complete Guide",
-  })
-})
+  });
+});
 
-// Typing Test Routes
 app.get("/typing-test", (req, res) => {
   res.render("typing-test", {
     title: "Advanced Typing Tester - MERN Quiz Pro",
-  })
-})
+  });
+});
 
-// API route to get typing text
 app.get("/api/typing-text", (req, res) => {
-  const difficulty = req.query.difficulty || "medium"
-  const text = getRandomTypingText(difficulty)
-  res.json({ text, difficulty })
-})
+  const difficulty = req.query.difficulty || "medium";
+  const text = getRandomTypingText(difficulty);
+  res.json({ text, difficulty });
+});
 
-// API route to save typing test results
 app.post("/api/typing-results", (req, res) => {
-  const { level, wpm, accuracy, timeSpent, charactersTyped, errors, difficulty } = req.body
+  const {
+    level,
+    wpm,
+    accuracy,
+    timeSpent,
+    charactersTyped,
+    errors,
+    difficulty,
+  } = req.body;
 
-  // Initialize typing session if not exists
   if (!req.session.typingStats) {
     req.session.typingStats = {
       totalTests: 0,
@@ -412,17 +463,18 @@ app.post("/api/typing-results", (req, res) => {
       totalTimeSpent: 0,
       levelsCompleted: [],
       testHistory: [],
-    }
+    };
   }
 
-  // Update session stats
-  const stats = req.session.typingStats
-  stats.totalTests++
-  stats.bestWPM = Math.max(stats.bestWPM, wpm)
-  stats.totalTimeSpent += timeSpent
-  stats.averageAccuracy = Math.round((stats.averageAccuracy * (stats.totalTests - 1) + accuracy) / stats.totalTests)
+  const stats = req.session.typingStats;
+  stats.totalTests++;
+  stats.bestWPM = Math.max(stats.bestWPM, wpm);
+  stats.totalTimeSpent += timeSpent;
+  stats.averageAccuracy = Math.round(
+    (stats.averageAccuracy * (stats.totalTests - 1) + accuracy) /
+      stats.totalTests
+  );
 
-  // Add to test history
   const testResult = {
     date: new Date().toISOString(),
     level,
@@ -433,19 +485,17 @@ app.post("/api/typing-results", (req, res) => {
     errors,
     difficulty,
     passed: wpm >= getRequiredWPM(level) && accuracy >= 85,
-  }
+  };
 
-  stats.testHistory.push(testResult)
+  stats.testHistory.push(testResult);
 
-  // Keep only last 50 results
   if (stats.testHistory.length > 50) {
-    stats.testHistory = stats.testHistory.slice(-50)
+    stats.testHistory = stats.testHistory.slice(-50);
   }
 
-  // Update completed levels
   if (testResult.passed && !stats.levelsCompleted.includes(level)) {
-    stats.levelsCompleted.push(level)
-    stats.levelsCompleted.sort((a, b) => a - b)
+    stats.levelsCompleted.push(level);
+    stats.levelsCompleted.sort((a, b) => a - b);
   }
 
   res.json({
@@ -458,10 +508,9 @@ app.post("/api/typing-results", (req, res) => {
       averageAccuracy: stats.averageAccuracy,
       levelsCompleted: stats.levelsCompleted.length,
     },
-  })
-})
+  });
+});
 
-// API route to get typing statistics
 app.get("/api/typing-stats", (req, res) => {
   const stats = req.session.typingStats || {
     totalTests: 0,
@@ -470,75 +519,65 @@ app.get("/api/typing-stats", (req, res) => {
     totalTimeSpent: 0,
     levelsCompleted: [],
     testHistory: [],
-  }
+  };
 
-  res.json(stats)
-})
+  res.json(stats);
+});
 
-// Helper function to get required WPM for each level
-function getRequiredWPM(level) {
-  const baseWPM = 20
-  const increment = Math.floor((level - 1) / 5) * 2
-  return baseWPM + increment
-}
-
-// Quiz Routes
 app.get("/quiz", (req, res) => {
-  // Initialize new quiz session
-  req.session.quizQuestions = getRandomQuestions(quizQuestions, 10)
-  req.session.currentQuestion = 0
-  req.session.score = 0
-  req.session.answers = []
-  req.session.startTime = new Date()
+  req.session.quizQuestions = getRandomQuestions(quizQuestions, 10);
+  req.session.currentQuestion = 0;
+  req.session.score = 0;
+  req.session.answers = [];
+  req.session.startTime = new Date();
 
-  res.redirect("/quiz/question")
-})
+  res.redirect("/quiz/question");
+});
 
 app.get("/quiz/question", (req, res) => {
   if (!req.session.quizQuestions) {
-    return res.redirect("/")
+    return res.redirect("/");
   }
 
-  const currentQuestion = req.session.currentQuestion || 0
-  const questions = req.session.quizQuestions
+  const currentQuestion = req.session.currentQuestion || 0;
+  const questions = req.session.quizQuestions;
 
   if (currentQuestion >= questions.length) {
-    return res.redirect("/quiz/results")
+    return res.redirect("/quiz/results");
   }
 
-  const question = questions[currentQuestion]
+  const question = questions[currentQuestion];
   res.render("question", {
     title: `Question ${currentQuestion + 1} - MERN Quiz Pro`,
     question,
     currentQuestion: currentQuestion + 1,
     totalQuestions: questions.length,
     progress: Math.round(((currentQuestion + 1) / questions.length) * 100),
-  })
-})
+  });
+});
 
 app.post("/quiz/answer", (req, res) => {
   if (!req.session.quizQuestions) {
-    return res.redirect("/")
+    return res.redirect("/");
   }
 
-  const { answer } = req.body
-  const currentQuestion = req.session.currentQuestion || 0
-  const questions = req.session.quizQuestions
-  const question = questions[currentQuestion]
+  const { answer } = req.body;
+  const currentQuestion = req.session.currentQuestion || 0;
+  const questions = req.session.quizQuestions;
+  const question = questions[currentQuestion];
 
   if (answer === undefined || answer === null) {
-    return res.redirect("/quiz/question")
+    return res.redirect("/quiz/question");
   }
 
-  const userAnswer = Number.parseInt(answer)
-  const isCorrect = userAnswer === question.correct
+  const userAnswer = Number.parseInt(answer);
+  const isCorrect = userAnswer === question.correct;
 
   if (isCorrect) {
-    req.session.score = (req.session.score || 0) + 1
+    req.session.score = (req.session.score || 0) + 1;
   }
 
-  // Store answer details
-  req.session.answers = req.session.answers || []
+  req.session.answers = req.session.answers || [];
   req.session.answers.push({
     questionId: question.id,
     question: question.question,
@@ -548,41 +587,39 @@ app.post("/quiz/answer", (req, res) => {
     isCorrect: isCorrect,
     category: question.category,
     explanation: question.explanation,
-  })
+  });
 
-  req.session.currentQuestion = currentQuestion + 1
-  res.redirect("/quiz/question")
-})
+  req.session.currentQuestion = currentQuestion + 1;
+  res.redirect("/quiz/question");
+});
 
 app.get("/quiz/results", (req, res) => {
   if (!req.session.answers) {
-    return res.redirect("/")
+    return res.redirect("/");
   }
 
-  const score = req.session.score || 0
-  const answers = req.session.answers || []
-  const totalQuestions = answers.length
-  const percentage = Math.round((score / totalQuestions) * 100)
-  const endTime = new Date()
-  const timeTaken = Math.round((endTime - req.session.startTime) / 1000) // in seconds
+  const score = req.session.score || 0;
+  const answers = req.session.answers || [];
+  const totalQuestions = answers.length;
+  const percentage = Math.round((score / totalQuestions) * 100);
+  const endTime = new Date();
+  const timeTaken = Math.round((endTime - req.session.startTime) / 1000);
 
-  // Calculate category-wise performance
-  const categoryStats = {}
+  const categoryStats = {};
   answers.forEach((answer) => {
     if (!categoryStats[answer.category]) {
-      categoryStats[answer.category] = { correct: 0, total: 0 }
+      categoryStats[answer.category] = { correct: 0, total: 0 };
     }
-    categoryStats[answer.category].total++
+    categoryStats[answer.category].total++;
     if (answer.isCorrect) {
-      categoryStats[answer.category].correct++
+      categoryStats[answer.category].correct++;
     }
-  })
+  });
 
-  // Convert to percentage
   Object.keys(categoryStats).forEach((category) => {
-    const stats = categoryStats[category]
-    stats.percentage = Math.round((stats.correct / stats.total) * 100)
-  })
+    const stats = categoryStats[category];
+    stats.percentage = Math.round((stats.correct / stats.total) * 100);
+  });
 
   res.render("results", {
     title: "Quiz Results - MERN Quiz Pro",
@@ -593,49 +630,47 @@ app.get("/quiz/results", (req, res) => {
     categoryStats,
     timeTaken: formatTime(timeTaken),
     grade: getGrade(percentage),
-  })
-})
+  });
+});
 
 app.get("/quiz/restart", (req, res) => {
-  // Clear quiz session data
-  delete req.session.quizQuestions
-  delete req.session.currentQuestion
-  delete req.session.score
-  delete req.session.answers
-  delete req.session.startTime
+  delete req.session.quizQuestions;
+  delete req.session.currentQuestion;
+  delete req.session.score;
+  delete req.session.answers;
+  delete req.session.startTime;
 
-  res.redirect("/")
-})
+  res.redirect("/");
+});
 
 app.get("/about", (req, res) => {
   res.render("about", {
     title: "About - MERN Quiz Pro",
-  })
-})
+  });
+});
 
-// API Routes for AJAX requests
 app.get("/api/questions/count", (req, res) => {
-  res.json({ total: quizQuestions.length })
-})
+  res.json({ total: quizQuestions.length });
+});
 
 app.get("/api/categories", (req, res) => {
-  const categories = [...new Set(quizQuestions.map((q) => q.category))]
-  res.json(categories)
-})
+  const categories = [...new Set(quizQuestions.map((q) => q.category))];
+  res.json(categories);
+});
 
 app.get("/api/level-requirements", (req, res) => {
-  const requirements = []
+  const requirements = [];
   for (let i = 1; i <= 100; i++) {
     requirements.push({
       level: i,
       requiredWPM: getRequiredWPM(i),
-      difficulty: i <= 25 ? "easy" : i <= 50 ? "medium" : i <= 75 ? "hard" : "expert",
-    })
+      difficulty:
+        i <= 25 ? "easy" : i <= 50 ? "medium" : i <= 75 ? "hard" : "expert",
+    });
   }
-  res.json(requirements)
-})
+  res.json(requirements);
+});
 
-// API route to reset typing progress
 app.post("/api/reset-typing-progress", (req, res) => {
   req.session.typingStats = {
     totalTests: 0,
@@ -644,34 +679,36 @@ app.post("/api/reset-typing-progress", (req, res) => {
     totalTimeSpent: 0,
     levelsCompleted: [],
     testHistory: [],
-  }
+  };
 
-  res.json({ success: true, message: "Typing progress reset successfully" })
-})
+  res.json({ success: true, message: "Typing progress reset successfully" });
+});
 
-// Error handling middleware
 app.use((req, res) => {
   res.status(404).render("404", {
     title: "404 - Page Not Found",
-  })
-})
+  });
+});
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
+  console.error(err.stack);
   res.status(500).render("500", {
     title: "500 - Server Error",
-  })
-})
+  });
+});
 
-// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 MERN Quiz Pro Server running on port ${PORT}`)
-  console.log(`📱 Open your browser and visit: http://localhost:${PORT}`)
-  console.log(`🎯 Ready to master the MERN stack!`)
-  console.log(`📊 Total questions available: ${quizQuestions.length}`)
-  console.log(`📚 Learning resources available at: http://localhost:${PORT}/learn`)
-  console.log(`⌨️  Advanced Typing Tester available at: http://localhost:${PORT}/typing-test`)
-  console.log(`🏆 100 levels of typing challenges await!`)
-})
+  console.log(`🚀 MERN Quiz Pro Server running on port ${PORT}`);
+  console.log(`📱 Open your browser and visit: http://localhost:${PORT}`);
+  console.log(`🎯 Ready to master the MERN stack!`);
+  console.log(`📊 Total questions available: ${quizQuestions.length}`);
+  console.log(
+    `📚 Learning resources available at: http://localhost:${PORT}/learn`
+  );
+  console.log(
+    `⌨️  Advanced Typing Tester available at: http://localhost:${PORT}/typing-test`
+  );
+  console.log(`🏆 100 levels of typing challenges await!`);
+});
 
-module.exports = app
+module.exports = app;
